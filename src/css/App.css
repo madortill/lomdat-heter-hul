@@ -82,6 +82,12 @@ body {
     text-align: center;
     cursor: pointer;
     z-index: 2;
+
+    transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.about-btn:hover {
+    transform: scale(1.15);
 }
 .about-text-btn {
   position: absolute;
@@ -120,7 +126,7 @@ body {
 }
 
 .list-text-about:hover {
-    background-color: #dbdbdb;
+    background-color: #d3eaf3;
 }
 
 .fade-in {
