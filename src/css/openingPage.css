@@ -1,3 +1,37 @@
 .openingPage {
-
+ 
   }
+  .open-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .open-title {
+    color: #006692;
+    font-family: "abraham";
+    font-size: 3rem;
+    margin-top: 1rem;
+  }
+  .btn-toStart {
+    background-color: #006692;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    margin-top: 2rem;
+    font-family: "rubik-bold";
+    cursor: pointer;
+    /* transition: transform 0.3s ease; */
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+  .btn-toStart:hover {
+    transform: scale(1.15);
+    filter: brightness(1.15);
+    box-shadow: 0 8px 25px rgba(0, 102, 146, 0.4);
+  }
+.plane {
+  width: 70rem;
+  margin-top: 8rem;
+}
+
