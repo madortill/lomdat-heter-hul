@@ -1,37 +1,174 @@
 .openingPage {
- 
-  }
-  .open-container{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  .open-title {
-    color: #006692;
-    font-family: "abraham";
-    font-size: 3rem;
-    margin-top: 1rem;
-  }
-  .btn-toStart {
-    background-color: #006692;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    color: white;
-    margin-top: 2rem;
-    font-family: "rubik-bold";
-    cursor: pointer;
-    /* transition: transform 0.3s ease; */
-    transition: transform 0.25s ease, background-color 0.25s ease;
-  }
-  .btn-toStart:hover {
-    transform: scale(1.15);
-    filter: brightness(1.15);
-    box-shadow: 0 8px 25px rgba(0, 102, 146, 0.4);
-  }
-.plane {
-  width: 70rem;
-  margin-top: 8rem;
+  overflow: hidden;
+  height: 100vh;
 }
 
+.openingPage {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cloud {
+  position: absolute;
+  width: 12rem;
+  opacity: 0.75;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* זזים בקטנה ימינה ושמאלה */
+.cloud1 {
+  top: 8%;
+  left: -1rem;
+  animation-name: cloudFloatSmallRight;
+  animation-duration: 18s;
+}
+
+.cloud2 {
+  top: 8rem;
+  right: -3rem;
+  width: 9rem;
+  opacity: 0.55;
+  animation-name: cloudFloatSmallLeft;
+  animation-duration: 22s;
+}
+
+.cloud3 {
+  top: 2rem;
+  right: 18rem;
+  width: 14rem;
+  opacity: 0.65;
+  animation-name: cloudFloatSmallLeft;
+  animation-duration: 26s;
+}
+
+.cloud4 {
+  top: 10rem;
+  left: 18rem;
+  width: 10rem;
+  opacity: 0.5;
+  animation-name: cloudFloatSmallRight;
+  animation-duration: 24s;
+}
+
+@keyframes cloudFloatSmallRight {
+  from {
+    transform: translateX(-2rem);
+  }
+
+  to {
+    transform: translateX(2rem);
+  }
+}
+
+@keyframes cloudFloatSmallLeft {
+  from {
+    transform: translateX(2rem);
+  }
+
+  to {
+    transform: translateX(-2rem);
+  }
+}
+
+
+.open-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.open-title {
+  color: #006692;
+  font-family: "abraham";
+  font-size: 3rem;
+  margin-top: 1rem;
+  z-index: 1;
+}
+
+.btn-toStart {
+  background-color: #006692;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: white;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  font-family: "rubik-bold";
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  z-index: 1;
+}
+
+.btn-toStart:hover {
+  transform: scale(1.15);
+  filter: brightness(1.15);
+  box-shadow: 0 8px 25px rgba(0, 102, 146, 0.4);
+}
+
+/* אותו גודל ואותו מיקום התחלתי לשני המטוסים */
+.plane,
+.planeSmoke {
+  width: 70rem;
+  margin-top: 8rem;
+  display: block;
+  z-index: 1;
+}
+
+/* רק המטוס עם העשן עף */
+.planeSmoke {
+  animation: flyAway 4s ease-in forwards;
+  z-index: 1;
+}
+
+@keyframes flyAway {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-35rem) scale(0.08);
+    opacity: 0;
+  }
+}
+
+/* הטקסט נעלם לקראת סוף תעופת המטוס */
+.fadeText {
+  animation: textFadeOut 1.2s ease forwards;
+  animation-delay: 3s;
+}
+
+@keyframes textFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

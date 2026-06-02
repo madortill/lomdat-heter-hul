@@ -5,7 +5,8 @@ body {
   height: 100%;
   /* background-color: #c2deff; */
   overscroll-behavior: none;
-  Font-size: calc(10px + 0.5vw);
+  Font-size: calc(1vh + 0.5vw);
+  overflow: hidden;
 }
 
 * {
@@ -26,16 +27,24 @@ body {
   /* background-color: #bd6806; */
 }
 ::selection {
-  background-color: #d498a0d8;
+  background-color: #006692;
   color: white;
 }
 .app {
-    min-height: 100vh;
-    width: 100%;
-    background-image: url("../assets/images/backgrounds/opening.svg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.app.opening {
+  background-image: url("../assets/images/backgrounds/opening.svg");
+}
+
+.app.intro {
+  background-image: url("../assets/images/backgrounds/sky.svg");
 }
 
 .til-logo {

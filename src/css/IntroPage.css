@@ -1,0 +1,130 @@
+.container-intro {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.plane-text {
+    width: 40rem;
+}
+.introPage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container-intro {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .plane-text {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* שכבת העננים - מאחורי הכל */
+  .intro-clouds {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  /* בסיס לכל העננים */
+  .intro-cloud {
+    position: absolute;
+    opacity: 0.65;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  /* עננים מפוזרים במסך */
+  .intro-cloud1 {
+    top: 3rem;
+    left: 2rem;
+    width: 11rem;
+    opacity: 0.55;
+    animation-name: introCloudMoveRight;
+    animation-duration: 20s;
+  }
+  
+  .intro-cloud2 {
+    top: 5rem;
+    right: 4rem;
+    width: 9rem;
+    opacity: 0.5;
+    animation-name: introCloudMoveLeft;
+    animation-duration: 24s;
+  }
+  
+  .intro-cloud3 {
+    top: 12rem;
+    left: 14rem;
+    width: 13rem;
+    opacity: 0.6;
+    animation-name: introCloudMoveRight;
+    animation-duration: 28s;
+  }
+  
+  .intro-cloud4 {
+    top: 15rem;
+    right: 12rem;
+    width: 10rem;
+    opacity: 0.45;
+    animation-name: introCloudMoveLeft;
+    animation-duration: 22s;
+  }
+  
+  .intro-cloud5 {
+    bottom: 8rem;
+    left: 5rem;
+    width: 12rem;
+    opacity: 0.5;
+    animation-name: introCloudMoveRight;
+    animation-duration: 26s;
+  }
+  
+  .intro-cloud6 {
+    bottom: 12rem;
+    right: -3rem;
+    width: 14rem;
+    opacity: 0.55;
+    animation-name: introCloudMoveLeft;
+    animation-duration: 30s;
+  }
+  
+  .intro-cloud7 {
+    top: 5rem;
+    left: 50%;
+    width: 8rem;
+    animation-name: introCloudMoveRight;
+    animation-duration: 25s;
+  }
+  
+  /* תנועה קטנה ועדינה */
+  @keyframes introCloudMoveRight {
+    from {
+      transform: translateX(-1.5rem) translateY(0);
+    }
+  
+    to {
+      transform: translateX(1.5rem) translateY(-0.5rem);
+    }
+  }
+  
+  @keyframes introCloudMoveLeft {
+    from {
+      transform: translateX(1.5rem) translateY(0);
+    }
+  
+    to {
+      transform: translateX(-1.5rem) translateY(0.5rem);
+    }
+  }
