@@ -26,8 +26,8 @@
   }
   .open-map-button {
     position: fixed;
-    top: 2rem;
-    left: 2rem;
+    top: 0.5rem;
+    right: 5rem;
     z-index: 20;
     padding: 0.7rem 1.3rem;
     border: none;
@@ -59,9 +59,11 @@
   .close-map-button {
     position: absolute;
     top: 1rem;
-    left: 1rem;
+    right: 1rem;
+    font-weight: 700;
     z-index: 101;
     border: none;
+    font-family: "rubik-bold";
     background: transparent;
     font-size: 2rem;
     cursor: pointer;
