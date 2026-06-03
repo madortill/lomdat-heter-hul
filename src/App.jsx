@@ -7,7 +7,7 @@ import mapBtn from "./assets/images/mapBtn.svg";
 
 import OpeningPage from "./mainPages/OpeningPage";
 import IntroPage from "./mainPages/IntroPage";
-import SubjMap from "./components/subjMap";
+import SubjMap from "./components/SubjMap";
 
 import EnteringRequest from "./components/subjects/EnteringRequest";
 import ManualProcedure from "./components/subjects/ManualProcedure";
