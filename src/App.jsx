@@ -12,7 +12,7 @@ import SubjMap from "./components/SubjMap";
 import EnteringRequest from "./components/subjects/EnteringRequest";
 import ManualProcedure from "./components/subjects/ManualProcedure";
 import DigitalProcedure from "./components/subjects/DigitalProcedure";
-import Practice from "./components/subjects/practice";
+import Practice from "./components/subjects/Practice";
 import GeneralProcedures from "./components/subjects/GeneralProcedures";
 
 function App() {
