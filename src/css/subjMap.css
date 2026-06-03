@@ -1,0 +1,68 @@
+.subj-map {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .subj-map svg {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .map-subject.unlocked {
+    cursor: pointer;
+  }
+  
+  .map-subject.unlocked:hover {
+    opacity: 0.8;
+  }
+  
+  .map-subject.locked {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+  .open-map-button {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 20;
+    padding: 0.7rem 1.3rem;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  
+  .map-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.55);
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .map-modal {
+    position: relative;
+    width: 85vw;
+    height: 80vh;
+    background: #BBD8EB;
+    border-radius: 2rem;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .close-map-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 101;
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+  }

@@ -43,9 +43,32 @@ body {
   background-image: url("../assets/images/backgrounds/opening.svg");
 }
 
-.app.intro {
+.app.intro,
+.app.map {
   background-image: url("../assets/images/backgrounds/sky.svg");
 }
+
+
+.app.enteringRequest {
+  background-image: url("../assets/images/backgrounds/.svg");
+}
+
+.app.manualProcedure {
+  background-image: url("../assets/images/backgrounds/sky.svg");
+}
+
+.app.digitalProcedure {
+  background-image: url("../assets/images/backgrounds/sky.svg");
+}
+
+.app.practice {
+  background-image: url("../assets/images/backgrounds/sky.svg");
+}
+
+.app.generalProcedures {
+  background-image: url("../assets/images/backgrounds/sky.svg");
+}
+
 
 .til-logo {
     position: fixed;

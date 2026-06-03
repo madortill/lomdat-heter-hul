@@ -13,7 +13,7 @@ function OpeningPage({ onStart }) {
 
     setTimeout(() => {
       onStart();
-    }, 4000);
+    }, 4500);
   };
 
   return (
