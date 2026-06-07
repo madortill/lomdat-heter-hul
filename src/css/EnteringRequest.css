@@ -1,0 +1,176 @@
+
+.subject-page {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+  background: #b6dee6;
+
+  /* Keeps z-index layers predictable inside this page */
+  isolation: isolate;
+}
+
+/* ---------- Paris background ---------- */
+
+.paris-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(182, 222, 230, 0.95) 45%,
+      #8fc9d6 100%
+    );
+}
+
+/* Soft background layer that makes the margins look intentional */
+.paris-background::before {
+  content: "";
+  position: absolute;
+  inset: -80px;
+  z-index: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 35%,
+      rgba(255, 255, 255, 0.55),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 80% 65%,
+      rgba(7, 67, 93, 0.16),
+      transparent 42%
+    ),
+    linear-gradient(
+      90deg,
+      #7fc1cf 0%,
+      #b6dee6 28%,
+      #b6dee6 72%,
+      #7fc1cf 100%
+    );
+
+  filter: blur(24px);
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+/* The real SVG: fully visible, not cropped */
+.paris-svg {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+
+  width: min(100vw, calc(100vh * 1440 / 1024));
+  height: min(100vh, calc(100vw * 1024 / 1440));
+}
+
+/* Clickable SVG areas */
+.clickable-area {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.clickable-area:hover {
+  opacity: 0.75;
+}
+
+/* ---------- Page title ---------- */
+
+.request-title {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  z-index: 5;
+
+  margin: 0;
+  color: #07435d;
+  font-size: clamp(36px, 5vw, 72px);
+}
+
+/* ---------- Info modal ---------- */
+
+.info-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.info-card {
+  position: relative;
+
+  width: min(620px, 86vw);
+  min-height: 220px;
+  padding: 48px 56px;
+
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  color: #07435d;
+  text-align: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+.info-card h2 {
+  margin: 0 0 18px;
+  font-size: clamp(28px, 4vw, 44px);
+}
+
+.info-card p {
+  margin: 0;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.6;
+}
+
+.close-button {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+
+  border: none;
+  background: transparent;
+  color: #07435d;
+
+  font-size: 36px;
+  cursor: pointer;
+}
+
+/* ---------- Next button ---------- */
+
+.plane-button {
+  position: absolute;
+  left: 40px;
+  bottom: 32px;
+  z-index: 10;
+
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+
+  background: white;
+  color: #07435d;
+  font-size: 34px;
+  cursor: pointer;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
