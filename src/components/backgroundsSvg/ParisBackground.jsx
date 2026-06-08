@@ -1,6 +1,11 @@
 import React from 'react'
 
-function ParisBackground({ onItemClick }) {
+function ParisBackground({ onItemClick, currentStep, completedItems = [] }) {
+    const steps = ["cafe", "eiffel", "lamp"];
+  
+    const isUnlocked = (item) => steps.indexOf(item) <= currentStep;
+    const isCurrent = (item) => steps.indexOf(item) === currentStep;
+    const isCompleted = (item) => completedItems.includes(item);
     return (
       <div className="paris-background">
         <svg
@@ -98,25 +103,63 @@ function ParisBackground({ onItemClick }) {
 <g clipPath="url(#clip2_196_344)">
 <rect x="-11" y="-69" width="1662" height="1246" fill="url(#pattern3_196_344)"/>
 {/* אייפל */}
-<g  className="clickable-area"
+<g
+  className={`clickable-area ${
+    isUnlocked("eiffel") ? "area-unlocked" : ""
+  } ${isCurrent("eiffel") ? "area-current" : ""} ${
+    isCompleted("eiffel") ? "area-completed" : ""
+  }`}
   filter="url(#filter0_f_196_344)"
-  onClick={() => onItemClick("eiffel")}>
+  onClick={() => onItemClick("eiffel")}
+>
 <path d="M871 25V59M871 59L866 79L855 88V115L860 125L849 288L836 411H826V432V444L809 520L845 523L860 461H885L893 520H938L912 432L919 411L906 404L893 288L885 125L889 112V95L878 79L871 59Z" stroke="#00A6F9" strokeWidth="8"/>
 </g>
 {/* בית קפה */}
-<g  className="clickable-area"
+<g
+  className={`clickable-area ${
+    isUnlocked("cafe") ? "area-unlocked" : ""
+  } ${isCurrent("cafe") ? "area-current" : ""} ${
+    isCompleted("cafe") ? "area-completed" : ""
+  }`}
   filter="url(#filter1_f_196_344)"
-  onClick={() => onItemClick("cafe")}>
+  onClick={() => onItemClick("cafe")}
+>
 <path d="M-5 567L36 606M36 666C36 666 26.0553 668.404 20.5 666C15.0498 663.641 10 655 10 655L1.5 663L-5 567L1.5 527L400 606L452.5 648.5V686C452.5 686 448.778 686.549 446.5 686C441.929 684.897 437.5 678 437.5 678C437.5 678 431.47 685.892 426 686C420.369 686.112 414 678 414 678C414 678 405.763 683.699 400 683C395.666 682.475 390 678 390 678C390 678 381.79 682.582 376 683C368.723 683.525 358 678 358 678C358 678 351.672 682.339 347 683C340.148 683.97 330 678 330 678C330 678 323.044 682.422 318 683C308.624 684.075 296 673 296 673C296 673 288.407 677.404 283 678C275.374 678.841 264 673 264 673C264 673 254.544 678.192 248 678C238.559 677.723 227 666 227 666C227 666 217.169 672.613 210 673C201.737 673.446 190 666 190 666C190 666 180.147 672.318 173 673C163.654 673.892 150 666 150 666C150 666 140.13 672.158 133 673C122.931 674.19 108 666 108 666C108 666 96.3298 667.153 89 666C79.9692 664.579 67 658 67 658L54 666H36ZM36 606V666M36 606L452.5 648.5" stroke="#00A6F9" strokeWidth="6"/>
 </g>
 </g>
 {/* עמוד תאורה */}
-<g className="clickable-area"
+<g
+  className={`clickable-area ${
+    isUnlocked("lamp") ? "area-unlocked" : ""
+  } ${isCurrent("lamp") ? "area-current" : ""} ${
+    isCompleted("lamp") ? "area-completed" : ""
+  }`}
   filter="url(#filter2_f_196_344)"
-  onClick={() => onItemClick("lamp")}>
+  onClick={() => onItemClick("lamp")}
+>
 <path d="M582 555H590.5V561.5L602.5 575.5L598.5 583L594.5 602L590.5 612V738L594.5 760.5L598.5 805V816.5L586 820.5L573.5 816.5V810.5L577 805V760.5L582 738V612L577 602L573.5 580L568 575.5L582 561.5V555Z" stroke="#00A6F9" strokeWidth="6"/>
 </g>
 </g>
+{isCompleted("cafe") && (
+  <g className="svg-checkmark" transform="translate(455 625)">
+    <circle r="22" />
+    <path d="M-10 0 L-2 8 L12 -10" />
+  </g>
+)}
+
+{isCompleted("eiffel") && (
+  <g className="svg-checkmark" transform="translate(930 115)">
+    <circle r="22" />
+    <path d="M-10 0 L-2 8 L12 -10" />
+  </g>
+)}
+
+{isCompleted("lamp") && (
+  <g className="svg-checkmark" transform="translate(625 565)">
+    <circle r="22" />
+    <path d="M-10 0 L-2 8 L12 -10" />
+  </g>
+)}
 <defs>
 <pattern id="pattern0_196_344" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlinkHref="#image0_196_344" transform="matrix(0.004 0 0 0.00295327 0 -0.000579439)"/>
