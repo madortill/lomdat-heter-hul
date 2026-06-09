@@ -49,10 +49,6 @@ body {
 }
 
 
-.app.enteringRequest {
-  background-image: url("../assets/images/backgrounds/.svg");
-}
-
 .app.manualProcedure {
   background-image: url("../assets/images/backgrounds/sky.svg");
 }
