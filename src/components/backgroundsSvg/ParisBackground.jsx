@@ -444,7 +444,7 @@ function ParisBackground({ onItemClick, currentStep, completedItems = [] }) {
               <path
                 d="M871 25V59M871 59L866 79L855 88V115L860 125L849 288L836 411H826V432V444L809 520L845 523L860 461H885L893 520H938L912 432L919 411L906 404L893 288L885 125L889 112V95L878 79L871 59Z"
                 stroke="#00A6F9"
-                strokeWidth="8"
+                strokeWidth="10"
               />
             </g>
             {/* בית קפה */}
@@ -460,7 +460,7 @@ function ParisBackground({ onItemClick, currentStep, completedItems = [] }) {
               <path
                 d="M-5 567L36 606M36 666C36 666 26.0553 668.404 20.5 666C15.0498 663.641 10 655 10 655L1.5 663L-5 567L1.5 527L400 606L452.5 648.5V686C452.5 686 448.778 686.549 446.5 686C441.929 684.897 437.5 678 437.5 678C437.5 678 431.47 685.892 426 686C420.369 686.112 414 678 414 678C414 678 405.763 683.699 400 683C395.666 682.475 390 678 390 678C390 678 381.79 682.582 376 683C368.723 683.525 358 678 358 678C358 678 351.672 682.339 347 683C340.148 683.97 330 678 330 678C330 678 323.044 682.422 318 683C308.624 684.075 296 673 296 673C296 673 288.407 677.404 283 678C275.374 678.841 264 673 264 673C264 673 254.544 678.192 248 678C238.559 677.723 227 666 227 666C227 666 217.169 672.613 210 673C201.737 673.446 190 666 190 666C190 666 180.147 672.318 173 673C163.654 673.892 150 666 150 666C150 666 140.13 672.158 133 673C122.931 674.19 108 666 108 666C108 666 96.3298 667.153 89 666C79.9692 664.579 67 658 67 658L54 666H36ZM36 606V666M36 606L452.5 648.5"
                 stroke="#00A6F9"
-                strokeWidth="6"
+                strokeWidth="10"
               />
             </g>
           </g>
@@ -483,22 +483,22 @@ function ParisBackground({ onItemClick, currentStep, completedItems = [] }) {
         </g>
         {isCompleted("cafe") && (
           <g className="svg-checkmark" transform="translate(455 625)">
-            <circle r="22" />
-            <path d="M-10 0 L-2 8 L12 -10" />
+            <circle r="16" />
+            <path d="M-8 0 L-2 6 L6 -7" />
           </g>
         )}
 
         {isCompleted("eiffel") && (
-          <g className="svg-checkmark" transform="translate(930 115)">
-            <circle r="22" />
-            <path d="M-10 0 L-2 8 L12 -10" />
+          <g className="svg-checkmark" transform="translate(910 115)">
+            <circle r="16" />
+            <path d="M-8 0 L-2 6 L6 -7" />
           </g>
         )}
 
         {isCompleted("lamp") && (
           <g className="svg-checkmark" transform="translate(625 565)">
-            <circle r="22" />
-            <path d="M-10 0 L-2 8 L12 -10" />
+           <circle r="16" />
+           <path d="M-8 0 L-2 6 L6 -7" />
           </g>
         )}
         <defs>

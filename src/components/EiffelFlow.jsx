@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import arrowImg from "../assets/images/enteringRequest/arrowCute.png"; // תשני לנתיב שלך
 
-function EiffelFlow() {
+function EiffelFlow({ onComplete, isCompleted }) {
   const steps = [
     {
       title: "שלב ראשון",
@@ -21,22 +21,30 @@ function EiffelFlow() {
     },
   ];
 
-  const [visibleSteps, setVisibleSteps] = useState(0);
+  const [visibleSteps, setVisibleSteps] = useState(
+    isCompleted ? steps.length : 0
+  );
 
   useEffect(() => {
+    if (isCompleted) {
+      setVisibleSteps(steps.length);
+      return;
+    }
+  
     let current = 0;
-
+  
     const interval = setInterval(() => {
       current += 1;
       setVisibleSteps(current);
-
+  
       if (current >= steps.length) {
         clearInterval(interval);
+        onComplete?.();
       }
-    }, 900);
-
+    }, 700);
+  
     return () => clearInterval(interval);
-  }, []);
+  }, [isCompleted]);
 
   return (
     <div className="eiffel-flow">

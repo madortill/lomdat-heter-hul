@@ -16,12 +16,57 @@ import Practice from "./components/subjects/Practice";
 import GeneralProcedures from "./components/subjects/GeneralProcedures";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("enteringRequest");
+  const [currentPage, setCurrentPage] = useState("manualProcedure");
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   const [unlockedSubjects, setUnlockedSubjects] = useState([
     "enteringRequest",
   ]);
+
+  const [subjectsProgress, setSubjectsProgress] = useState({
+    enteringRequest: {
+      activeItem: null,
+      currentStep: 0,
+      completedItems: [],
+
+      cafeClickedCroissants: [],
+      cafeCompleted: false,
+
+      eiffelPage: 0,
+      eiffelCompletedPages: [],
+
+      popupContent: null,
+
+      lampSelectedType: null,
+      lampOpenCardsByType: {
+        keva: [],
+        hova: [],
+      },
+      lampCompletedTypes: [],
+    },
+
+    manualProcedure: {
+      activeItem: null,
+      currentStep: 0,
+      completedItems: [],
+    
+      gelateriaPage: 0,
+    
+      gelateriaHovaSelectedFlavor: null,
+      gelateriaHovaClickedFlavors: [],
+      gelateriaHovaCompleted: false,
+    
+      gelateriaKevaSelectedFlavor: null,
+      gelateriaKevaClickedFlavors: [],
+      gelateriaKevaCompleted: false,
+    
+      pizzeriaCompleted: false,
+      pisaCompleted: false,
+    },
+    digitalProcedure: {},
+    practice: {},
+    generalProcedures: {},
+  });
 
   const subjectOrder = [
     "enteringRequest",
@@ -30,6 +75,23 @@ function App() {
     "practice",
     "generalProcedures",
   ];
+
+  const updateSubjectProgress = (subjectName, updates) => {
+    setSubjectsProgress((prev) => ({
+      ...prev,
+      [subjectName]: {
+        ...prev[subjectName],
+        ...updates,
+      },
+    }));
+  };
+
+  const updateSubjectProgressWithCallback = (subjectName, updater) => {
+    setSubjectsProgress((prev) => ({
+      ...prev,
+      [subjectName]: updater(prev[subjectName]),
+    }));
+  };
 
   const unlockSubject = (subjectName) => {
     setUnlockedSubjects((prev) => {
@@ -58,6 +120,15 @@ function App() {
     goTo(nextSubject);
   };
 
+  const goPreviousSubject = () => {
+    const currentIndex = subjectOrder.indexOf(currentPage);
+    const previousSubject = subjectOrder[currentIndex - 1];
+
+    if (!previousSubject) return;
+
+    goTo(previousSubject);
+  };
+
   const shouldShowMapButton =
     currentPage !== "opening" &&
     currentPage !== "intro" &&
@@ -69,15 +140,12 @@ function App() {
       <img src={bahad11Icon} alt="bahad11Icon" className="bahad11Icon" />
 
       {shouldShowMapButton && (
-        <>
-         <img src={mapBtn} alt="mapBtn" className="open-map-button"  onClick={() => setIsMapOpen(true)} />
-        {/* <button
+        <img
+          src={mapBtn}
+          alt="mapBtn"
           className="open-map-button"
           onClick={() => setIsMapOpen(true)}
-        >
-          מפה
-        </button> */}
-        </>
+        />
       )}
 
       {currentPage === "opening" && (
@@ -96,23 +164,70 @@ function App() {
       )}
 
       {currentPage === "enteringRequest" && (
-        <EnteringRequest onNext={goNextSubject} />
+        <EnteringRequest
+          onNext={goNextSubject}
+          progress={subjectsProgress.enteringRequest}
+          setProgress={(updates) =>
+            updateSubjectProgress("enteringRequest", updates)
+          }
+          setProgressWithCallback={(updater) =>
+            updateSubjectProgressWithCallback("enteringRequest", updater)
+          }
+        />
       )}
 
       {currentPage === "manualProcedure" && (
-        <ManualProcedure onNext={goNextSubject} />
+        <ManualProcedure
+          onNext={goNextSubject}
+          onBack={goPreviousSubject}
+          progress={subjectsProgress.manualProcedure}
+          setProgress={(updates) =>
+            updateSubjectProgress("manualProcedure", updates)
+          }
+          setProgressWithCallback={(updater) =>
+            updateSubjectProgressWithCallback("manualProcedure", updater)
+          }
+        />
       )}
 
       {currentPage === "digitalProcedure" && (
-        <DigitalProcedure onNext={goNextSubject} />
+        <DigitalProcedure
+          onNext={goNextSubject}
+          onBack={goPreviousSubject}
+          progress={subjectsProgress.digitalProcedure}
+          setProgress={(updates) =>
+            updateSubjectProgress("digitalProcedure", updates)
+          }
+          setProgressWithCallback={(updater) =>
+            updateSubjectProgressWithCallback("digitalProcedure", updater)
+          }
+        />
       )}
 
       {currentPage === "practice" && (
-        <Practice onNext={goNextSubject} />
+        <Practice
+          onNext={goNextSubject}
+          onBack={goPreviousSubject}
+          progress={subjectsProgress.practice}
+          setProgress={(updates) => updateSubjectProgress("practice", updates)}
+          setProgressWithCallback={(updater) =>
+            updateSubjectProgressWithCallback("practice", updater)
+          }
+        />
       )}
 
       {currentPage === "generalProcedures" && (
-        <GeneralProcedures onNext={goNextSubject} />
+        <GeneralProcedures
+          onNext={goNextSubject}
+          onBack={goPreviousSubject}
+          progress={subjectsProgress.generalProcedures}
+          setProgress={(updates) =>
+            updateSubjectProgress("generalProcedures", updates)
+          }
+          setProgressWithCallback={(updater) =>
+            updateSubjectProgressWithCallback("generalProcedures", updater)
+          }
+        />
       )}
 
       {isMapOpen && (

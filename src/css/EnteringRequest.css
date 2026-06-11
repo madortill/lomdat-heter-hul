@@ -176,6 +176,7 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
+
 .info-card {
   position: relative;
 
@@ -228,27 +229,18 @@
   font-size: 1rem;
   cursor: pointer;
 }
+.modal-action-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+}
+
+.close-button:disabled {
+  pointer-events: none;
+}
 
 /* ---------- Next button ---------- */
 
-.plane-button {
-  position: absolute;
-  left: 2.5rem;
-  bottom: 2rem;
-  z-index: 10;
-
-  width: 4.375rem;
-  height: 4.375rem;
-  border-radius: 50%;
-  border: none;
-
-  background: white;
-  color: #07435d;
-  font-size: 2.125rem;
-  cursor: pointer;
-
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.22);
-}
 
 .clickable-area {
   opacity: 0;
@@ -309,7 +301,7 @@
 .svg-checkmark path {
   fill: none;
   stroke: #07435d;
-  stroke-width: 0.3125rem;
+  stroke-width: 0.29rem;
   stroke-linecap: round;
   stroke-linejoin: round;
 }

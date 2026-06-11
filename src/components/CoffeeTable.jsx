@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
-function CoffeeTable() {
+function CoffeeTable({
+    clickedCroissants,
+    setClickedCroissants,
+    onComplete,
+  }) {
   const [activeText, setActiveText] = useState("");
-  const [clickedCroissants, setClickedCroissants] = useState([]);
 
   const croissantTexts = {
     croissant1:
@@ -17,10 +20,18 @@ function CoffeeTable() {
 
   const handleCroissantClick = (croissantId) => {
     setActiveText(croissantTexts[croissantId]);
-
-    setClickedCroissants((prev) =>
-      prev.includes(croissantId) ? prev : [...prev, croissantId]
-    );
+  
+    setClickedCroissants((prev) => {
+      const updated = prev.includes(croissantId)
+        ? prev
+        : [...prev, croissantId];
+  
+      if (updated.length === Object.keys(croissantTexts).length) {
+        onComplete?.();
+      }
+  
+      return updated;
+    });
   };
 
   const isClicked = (croissantId) => clickedCroissants.includes(croissantId);
