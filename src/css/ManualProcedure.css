@@ -292,3 +292,143 @@ top: -15rem;
 
   box-shadow: 0 0.45rem 1rem rgba(0, 0, 0, 0.16);
 }
+
+/* -------------------------------------------------------------pizza------------------------------------------------------------------------ */
+.pizza-topics-wrapper {
+  width: 100%;
+  direction: rtl;
+  text-align: center;
+}
+
+.topics-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.pizza-topic-button {
+  width: 6.5rem;
+  min-height: 7.2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: grab;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pizza-topic-button:hover {
+  transform: translateY(-0.25rem);
+}
+
+.pizza-topic-button.added {
+  opacity: 0.45;
+}
+
+.pizza-topic-button.active {
+  opacity: 1;
+  transform: translateY(-0.25rem) scale(1.05);
+}
+
+.pizza-topic-label {
+  min-height: 2.4rem;
+  margin-bottom: 0.35rem;
+
+  font-family: "rubik";
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #07435d;
+}
+
+.pizza-topic {
+  max-width: 7rem;
+  max-height: 7rem;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.pizza-drop-area {
+  position: relative;
+  width: 20rem;
+  height: 17rem;
+  margin: 1rem auto 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pizza-tray {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pizza-main {
+  position: relative;
+  width: 18rem;
+  height: 14rem;
+  z-index: 2;
+  top: -0.4rem;
+  right: 0.7rem;
+}
+
+.pizza-layer {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  pointer-events: none;
+}
+.pizza-topping-layer {
+  width: 88%;
+  height: 88%;
+  top: 6%;
+  right: 6%;
+}
+
+.pizza-topic-text {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+
+  z-index: 50;
+
+  width: 7.5rem;
+  min-height: 4rem;
+  padding: 0.4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "rubik-bold";
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: #006692;
+  text-align: center;
+
+  background: rgba(255, 248, 233, 0.86);
+  border-radius: 999rem;
+}
+.pizza-keva-note {
+  margin: 0.4rem 0 0;
+  font-family: "rubik-bold";
+  font-size: 0.95rem;
+  color: #006692;
+}

@@ -181,11 +181,11 @@
   position: relative;
 
   width: min(60rem, 86vw);
-  min-height: 42rem;
+  height: 45rem;
   padding: 1rem 3.5rem;
 
   border-radius: 1.75rem;
-  background: rgba(255, 255, 255, 0.767);
+  background: rgba(255, 255, 255, 0.815);
 
   backdrop-filter: blur(0.5rem);
 

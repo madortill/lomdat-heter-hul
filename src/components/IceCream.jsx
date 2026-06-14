@@ -10,15 +10,15 @@ import coffee from "../assets/images/manualProcedure/coffee.png";
 import berries from "../assets/images/manualProcedure/berries.png";
 import pistachio from "../assets/images/manualProcedure/pistachio.png";
 
-
 function IceCream({
+  type = "hova",
   selectedFlavor,
   setSelectedFlavor,
   clickedFlavors = [],
   setClickedFlavors,
   onComplete,
 }) {
-  const flavors = {
+  const hovaFlavors = {
     chocolate: {
       img: chocolate,
       alt: "שוקולד",
@@ -26,17 +26,17 @@ function IceCream({
       textColor: "#ffffff",
       text: "חייל חובה בעל היתר 'עובד משמרות.'",
     },
-    banana: {
-      img: banana,
-      alt: "בננה",
-      color: "#FFF7C3",
-      text: 'כל סוגי בקשות החו"ל שאינן היתר לחופשה שנתית.',
-    },
     strawberry: {
       img: strawberry,
       alt: "תות",
       color: "#FFB1B3",
       text: "חייל בסיפוח",
+    },
+    banana: {
+      img: banana,
+      alt: "בננה",
+      color: "#FFF7C3",
+      text: 'כל סוגי בקשות החו"ל שאינן היתר לחופשה שנתית.',
     },
     vanilla: {
       img: vanilla,
@@ -45,37 +45,42 @@ function IceCream({
       text: "סימון מדינה/קונקשיין/מסלול אווירי אסורים",
     },
   };
+
   const kevaFlavors = {
-    first: {
-      img: coffee,
-      label: "קפה",
-      color: "#D6AA7B",
-      text: "כאן יופיע מלל ראשון של אנשי קבע.",
-    },
-    second: {
-      img: pistachio,
-      label: "פיסטוק",
-      color: "#A0D09D",
-      text: "כאן יופיע מלל שני של אנשי קבע.",
-    },
-    third: {
+    berries: {
       img: berries,
-      label: "פירות יער",
+      alt: "פירות יער",
       color: "#D85873",
       textColor: "#ffffff",
-      text: "כאן יופיע מלל שלישי של אנשי קבע.",
+      text: "כאן יופיע מלל של אנשי קבע - פירות יער.",
+    },
+    pistachio: {
+      img: pistachio,
+      alt: "פיסטוק",
+      color: "#A0D09D",
+      text: "כאן יופיע מלל של אנשי קבע - פיסטוק.",
+    },
+    coffee: {
+      img: coffee,
+      alt: "קפה",
+      color: "#D6AA7B",
+      text: "כאן יופיע מלל של אנשי קבע - קפה.",
     },
   };
+
+  const currentFlavors = type === "keva" ? kevaFlavors : hovaFlavors;
 
   const handleFlavorClick = (flavorName) => {
     setSelectedFlavor(flavorName);
 
     setClickedFlavors((prev) => {
-      const updated = prev.includes(flavorName)
-        ? prev
-        : [...prev, flavorName];
+      const safePrev = prev || [];
 
-      if (updated.length === Object.keys(flavors).length) {
+      const updated = safePrev.includes(flavorName)
+        ? safePrev
+        : [...safePrev, flavorName];
+
+      if (updated.length === Object.keys(currentFlavors).length) {
         onComplete?.();
       }
 
@@ -83,15 +88,17 @@ function IceCream({
     });
   };
 
-  const activeFlavor = selectedFlavor ? flavors[selectedFlavor] : null;
+  const activeFlavor = selectedFlavor ? currentFlavors[selectedFlavor] : null;
+
   const iceCreamColor = activeFlavor ? activeFlavor.color : "#FFB1B3";
 
   return (
     <div className="ice-cream-wrapper">
       <div className="ice-creams-container">
-        {Object.entries(flavors).map(([flavorName, flavor]) => (
+        {Object.entries(currentFlavors).map(([flavorName, flavor]) => (
           <button
             key={flavorName}
+            type="button"
             className={`ice-cream-btn ${
               selectedFlavor === flavorName ? "active" : ""
             } ${clickedFlavors.includes(flavorName) ? "clicked" : ""}`}
@@ -101,20 +108,20 @@ function IceCream({
           </button>
         ))}
       </div>
-  
-      <IceCreamSvg color={iceCreamColor} />
-  
+
+      {activeFlavor && <IceCreamSvg color={iceCreamColor} />}
+
       {activeFlavor && (
-  <div
-    className="ice-cream-info"
-    style={{
-      backgroundColor: activeFlavor.color,
-      color: activeFlavor.textColor || "#07435d",
-    }}
-  >
-    {activeFlavor.text}
-  </div>
-)}
+        <div
+          className="ice-cream-info"
+          style={{
+            backgroundColor: activeFlavor.color,
+            color: activeFlavor.textColor || "#07435d",
+          }}
+        >
+          {activeFlavor.text}
+        </div>
+      )}
     </div>
   );
 }
