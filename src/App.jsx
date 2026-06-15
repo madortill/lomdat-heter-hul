@@ -16,7 +16,7 @@ import Practice from "./components/subjects/Practice";
 import GeneralProcedures from "./components/subjects/GeneralProcedures";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("manualProcedure");
+  const [currentPage, setCurrentPage] = useState("digitalProcedure");
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   const [unlockedSubjects, setUnlockedSubjects] = useState([
@@ -64,6 +64,10 @@ function App() {
       pisaCompleted: false,
     },
     digitalProcedure: {},
+    activeItem: null,
+    currentStep: 0,
+    completedItems: [],
+  
     practice: {},
     generalProcedures: {},
   });

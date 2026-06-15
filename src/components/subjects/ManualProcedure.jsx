@@ -240,8 +240,8 @@ function ManualProcedure({
 
     pizzeria: {
       title: "נוהל ידני",
-      text1: "גררו את המרכיבים לפי הסדר",
-      text2: isPizzeriaHovaPage ? "חיילי חובה" : "חיילי קבע",
+      text1: isPizzeriaHovaPage ? "חיילי חובה" : "חיילי קבע",
+      text3: "-גררו את המרכיבים לפי הסדר-",
       component: (
         <PizzaTopics
           key={pizzeriaPage}
@@ -381,7 +381,7 @@ function ManualProcedure({
             <h2>{activeContent.title}</h2>
 
             {activeContent.text1 && (
-              <p className="infoCard-text">{activeContent.text1}</p>
+              <p className="lamp-subtitle">{activeContent.text1}</p>
             )}
 
             {activeContent.text2 && (
