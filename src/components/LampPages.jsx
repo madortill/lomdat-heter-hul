@@ -1,6 +1,6 @@
 import React from "react";
 
-/* תחליפי לנתיבים האמיתיים שלך */
+
 import kevaImg from "../assets/images/enteringRequest/kevaImg.svg";
 import hovaImg from "../assets/images/enteringRequest/hovaImg.svg";
 import backBtnDiv from "../assets/images/enteringRequest/backBtnDiv.png";

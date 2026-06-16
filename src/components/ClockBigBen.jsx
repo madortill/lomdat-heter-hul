@@ -71,20 +71,39 @@ function ClockBigBen({ type = "hova", onComplete, isCompleted = false }) {
 
   const [selectedTopicId, setSelectedTopicId] = useState(null);
   const [clickedTopics, setClickedTopics] = useState([]);
+  const [hasReportedComplete, setHasReportedComplete] = useState(isCompleted);
 
   useEffect(() => {
     if (isCompleted) {
       setClickedTopics(topics.map((topic) => topic.id));
+      setHasReportedComplete(true);
       return;
     }
-  
+
     setClickedTopics([]);
     setSelectedTopicId(null);
-  }, [type, isCompleted]);
+    setHasReportedComplete(false);
+  }, [type, isCompleted, topics]);
 
-  const selectedTopic = topics.find(
-    (topic) => topic.id === selectedTopicId
-  );
+  useEffect(() => {
+    const allTopicsClicked =
+      topics.length > 0 && clickedTopics.length === topics.length;
+
+    if (allTopicsClicked && !hasReportedComplete && !isCompleted) {
+      setHasReportedComplete(true);
+      onComplete?.();
+    }
+  }, [
+    clickedTopics.length,
+    topics.length,
+    hasReportedComplete,
+    isCompleted,
+    onComplete,
+  ]);
+
+  const selectedTopic = selectedTopicId
+    ? topics.find((topic) => topic.id === selectedTopicId)
+    : null;
 
   const handleTopicClick = (topicId) => {
     setSelectedTopicId(topicId);
@@ -92,13 +111,7 @@ function ClockBigBen({ type = "hova", onComplete, isCompleted = false }) {
     setClickedTopics((prev) => {
       if (prev.includes(topicId)) return prev;
 
-      const updated = [...prev, topicId];
-
-      if (updated.length === topics.length) {
-        onComplete?.();
-      }
-
-      return updated;
+      return [...prev, topicId];
     });
   };
 
@@ -107,12 +120,16 @@ function ClockBigBen({ type = "hova", onComplete, isCompleted = false }) {
       <div className="clock-info-card">
         <img src={cardBigBen} alt="" className="clock-info-card-img" />
 
-        {selectedTopic && (
-          <div className="clock-info-card-text">
-            <h3>{selectedTopic.title}</h3>
-            <p>{selectedTopic.text}</p>
-          </div>
-        )}
+        <div className="clock-info-card-text">
+          {selectedTopic ? (
+            <>
+              <h3>{selectedTopic.title}</h3>
+              <p>{selectedTopic.text}</p>
+            </>
+          ) : (
+""
+          )}
+        </div>
       </div>
 
       <div className="clock-container">

@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import phone from "../assets/images/digitalProcedure/phone.png";
 
 const numberPositions = {
+  1: { top: "6.15rem", left: "7.7rem" },
+  2: { top: "6.15rem", left: "9.1rem" },
+  3: { top: "6.15rem", left: "10.5rem" },
 
-    1: { top: "6.15rem", left: "7.7rem" },
-    2: { top: "6.15rem", left: "9.1rem" },
-    3: { top: "6.15rem", left: "10.5rem" },
-  
-    4: { top: "7.5rem", left: "7.7rem" },
-    5: { top: "7.5rem", left: "9.1rem" },
-    6: { top: "7.5rem", left: "10.5rem" },
-  
-    7: { top: "8.85rem", left: "7.7rem" },
-    8: { top: "8.85rem", left: "9.1rem" },
-    9: { top: "8.85rem", left: "10.5rem" },
-  
-    0: { top: "10.2rem", left: "9.1rem" },
-  
-  };
+  4: { top: "7.5rem", left: "7.7rem" },
+  5: { top: "7.5rem", left: "9.1rem" },
+  6: { top: "7.5rem", left: "10.5rem" },
+
+  7: { top: "8.85rem", left: "7.7rem" },
+  8: { top: "8.85rem", left: "9.1rem" },
+  9: { top: "8.85rem", left: "10.5rem" },
+
+  0: { top: "10.2rem", left: "9.1rem" },
+};
 
 const gameData = {
   hova: {
@@ -28,7 +26,12 @@ const gameData = {
   },
 };
 
-function PhoneClicks({ type = "hova", onComplete, successText }) {
+function PhoneClicks({
+  type = "hova",
+  onComplete,
+  successText,
+  isCompleted = false,
+}) {
   const currentGame = gameData[type];
 
   const [animationStarted, setAnimationStarted] = useState(false);
@@ -36,7 +39,26 @@ function PhoneClicks({ type = "hova", onComplete, successText }) {
   const [highlightedIndex, setHighlightedIndex] = useState(null);
   const [currentClickIndex, setCurrentClickIndex] = useState(0);
   const [message, setMessage] = useState("");
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState(isCompleted);
+
+  useEffect(() => {
+    if (isCompleted) {
+      setCompleted(true);
+      setAnimationStarted(true);
+      setAnimationFinished(false);
+      setHighlightedIndex(null);
+      setCurrentClickIndex(0);
+      setMessage(successText);
+      return;
+    }
+
+    setCompleted(false);
+    setAnimationStarted(false);
+    setAnimationFinished(false);
+    setHighlightedIndex(null);
+    setCurrentClickIndex(0);
+    setMessage("");
+  }, [isCompleted, successText, type]);
 
   const startAnimation = () => {
     if (completed) return;
@@ -96,16 +118,13 @@ function PhoneClicks({ type = "hova", onComplete, successText }) {
         </button>
       )}
 
-      {/* {animationStarted && !animationFinished && !completed && (
-        <p className="phone-clicks-message">שימו לב לסדר המספרים...</p>
-      )} */}
-
       <div className="game-phone-container">
         <img src={phone} alt="phone" className="phone-img" />
 
         <div className="phone-buttons-layer">
           {Object.entries(numberPositions).map(([number, position]) => {
             const numericNumber = Number(number);
+
             const highlightedNumber =
               highlightedIndex !== null
                 ? currentGame.sequence[highlightedIndex]
@@ -130,15 +149,16 @@ function PhoneClicks({ type = "hova", onComplete, successText }) {
             );
           })}
         </div>
+
         {message && (
-    <div
-      className={`phone-message-box ${
-        completed ? "phone-clicks-success-message" : ""
-      }`}
-    >
-      {message}
-    </div>
-  )}
+          <div
+            className={`phone-message-box ${
+              completed ? "phone-clicks-success-message" : ""
+            }`}
+          >
+            {message}
+          </div>
+        )}
       </div>
 
       {animationFinished && !completed && (

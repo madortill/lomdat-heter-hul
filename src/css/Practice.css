@@ -1,0 +1,181 @@
+.thailand-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .thailand-svg {
+    width: min(100vw, calc(100vh * 1440 / 1024));
+    height: min(100vh, calc(100vw * 1024 / 1440));
+    display: block;
+  }
+  .practice-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .practice-info-card {
+    width: 78rem;
+    min-height: 45rem;
+  }
+  
+  /* בחירת דמות */
+  
+  .practice-character-choice {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8rem;
+    margin-top: 2rem;
+  }
+  
+  .practice-character-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    font-family: "rubik-bold";
+    font-size: 1.2rem;
+    color: #07435d;
+  }
+  
+  .practice-character-button img {
+    height: 15rem;
+    object-fit: contain;
+    margin-bottom: 0.8rem;
+  }
+  
+  .practice-character-button:hover {
+    transform: scale(1.04);
+  }
+  
+  /* תרגול סלסילה */
+  
+  .fruit-basket-wrapper {
+    position: relative;
+    width: 70rem;
+    height: 34rem;
+    margin: 0 auto;
+    direction: rtl;
+  }
+  
+  .fruit-practice-title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    width: 42rem;
+    text-align: center;
+    color: #07435d;
+    font-family: "rubik-bold";
+  }
+  
+  .fruit-practice-title h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.5rem;
+  }
+  
+  .fruit-practice-title p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .fruit-options-row {
+    position: absolute;
+    top: 4.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+  
+    z-index: 3;
+  }
+  
+  .fruit-option-card {
+    width: 13rem;
+    min-height: 11rem;
+  
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    font-family: "rubik";
+    color: #111;
+    text-align: center;
+  }
+  
+  .fruit-option-card:hover {
+    transform: scale(1.04);
+  }
+  
+  .fruit-option-img {
+    width: 4.8rem;
+    height: 4.8rem;
+    object-fit: contain;
+    margin-bottom: 0.4rem;
+  }
+  
+  .fruit-option-stage {
+    font-family: "rubik-bold";
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: #07435d;
+  }
+  
+  .fruit-option-text {
+    font-family: "rubik-bold";
+    font-size: 0.95rem;
+    line-height: 1.25;
+    color: #07435d;
+  }
+  
+  .fruit-basket-area {
+    position: absolute;
+    top: 18rem;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    width: 22rem;
+    height: 15.6rem;
+  }
+  
+  .fruit-basket-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .fruit-basket-message {
+    position: absolute;
+    top: 16rem;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    width: 42rem;
+  
+    font-family: "rubik-bold";
+    font-size: 1.15rem;
+    color: #006692;
+    text-align: center;
+  }
+  
+  .fruit-basket-success-message {
+    font-size: 1.5rem;
+  }
