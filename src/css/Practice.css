@@ -21,8 +21,9 @@
   }
   
   .practice-info-card {
-    width: 78rem;
-    min-height: 45rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
   
   /* בחירת דמות */
@@ -47,16 +48,20 @@
     font-family: "rubik-bold";
     font-size: 1.2rem;
     color: #07435d;
+    transition: transform 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
+  will-change: transform;
   }
   
   .practice-character-button img {
     height: 15rem;
     object-fit: contain;
     margin-bottom: 0.8rem;
+
   }
   
   .practice-character-button:hover {
-    transform: scale(1.04);
+    transform: translateY(-0.4rem) scale(1.04);
+    filter: drop-shadow(0 0.5rem 0.9rem rgba(0, 0, 0, 0.22));
   }
   
   /* תרגול סלסילה */
@@ -67,6 +72,7 @@
     height: 34rem;
     margin: 0 auto;
     direction: rtl;
+    
   }
   
   .fruit-practice-title {
@@ -119,10 +125,13 @@
     font-family: "rubik";
     color: #111;
     text-align: center;
+    transition: transform 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
+    will-change: transform;
   }
   
   .fruit-option-card:hover {
-    transform: scale(1.04);
+    transform: translateY(-0.4rem) scale(1.04);
+
   }
   
   .fruit-option-img {
@@ -178,4 +187,50 @@
   
   .fruit-basket-success-message {
     font-size: 1.5rem;
+  }
+  .practice-character-completed {
+    opacity: 0.75;
+  }
+
+  .practice-progress-note {
+    margin-top: 1rem;
+    font-family: "rubik-bold";
+    font-size: 1.1rem;
+    color: #006692;
+    text-align: center;
+  }
+  .practice-character-completed {
+    opacity: 0.65;
+    filter: grayscale(0.2);
+  }
+  
+  .practice-progress-note {
+    margin-top: 1rem;
+    font-family: "rubik-bold";
+    font-size: 1.1rem;
+    color: #006692;
+    text-align: center;
+  }
+  
+  .fruit-completed-steps {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem 1.2rem;
+  
+    width: 52rem;
+    margin: 0 auto;
+    margin-right: -5rem;
+  
+    font-family: "rubik-bold";
+    color: #07435d;
+    text-align: center;
+  }
+  
+  .fruit-completed-step {
+    font-size: 1rem;
+    line-height: 1.3;
+    white-space: nowrap;
   }

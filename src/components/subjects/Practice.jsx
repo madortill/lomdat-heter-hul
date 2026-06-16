@@ -24,7 +24,9 @@ function Practice({
 
     practicePage = 0,
     selectedPracticeType = null,
-    fruitStandCompleted = false,
+
+    practiceHovaCompleted = false,
+    practiceKevaCompleted = false,
   } = progress;
 
   const steps = ["fruitStand"];
@@ -32,16 +34,19 @@ function Practice({
   const isChooseCharacterPage = practicePage === 0;
   const isBasketPage = practicePage === 1;
 
+  const fruitStandCompleted = practiceHovaCompleted && practiceKevaCompleted;
+
+  const currentPracticeCompleted =
+    selectedPracticeType === "hova"
+      ? practiceHovaCompleted
+      : selectedPracticeType === "keva"
+      ? practiceKevaCompleted
+      : false;
+
   const isSubjectCompleted = fruitStandCompleted;
 
   const isModalActionAllowed =
     activeItem === "fruitStand" ? fruitStandCompleted : true;
-
-  const completePracticePart = (partName) => {
-    if (partName === "fruitStand") {
-      setProgress({ fruitStandCompleted: true });
-    }
-  };
 
   const choosePracticeType = (type) => {
     setProgress({
@@ -50,10 +55,25 @@ function Practice({
     });
   };
 
+  const completePracticePart = () => {
+    if (selectedPracticeType === "hova") {
+      setProgress({
+        practiceHovaCompleted: true,
+      });
+      return;
+    }
+
+    if (selectedPracticeType === "keva") {
+      setProgress({
+        practiceKevaCompleted: true,
+      });
+    }
+  };
+
   const handlePracticeBack = () => {
     setProgress({
+      selectedPracticeType: null,
       practicePage: 0,
-      fruitStandCompleted: false,
     });
   };
 
@@ -65,40 +85,64 @@ function Practice({
         : selectedPracticeType === "hova"
         ? "חיילי חובה"
         : "אנשי קבע",
+
       text2: isChooseCharacterPage
         ? "בתרגול הבא, אתם תצטרכו להרכיב את סלסילת הפירות הנכונה"
-        : "לחצו על הפירות לפי סדר השלבים הנכון.",
+        : "בחרו בכל פעם את השלב הבא לפי הסדר הנכון.",
+
       text3: isChooseCharacterPage
         ? "אתם תצטרכו לעבור את התהליך להשגת היתר חו״ל לפי הסדר הנכון"
         : "",
+
       text4: isChooseCharacterPage
         ? "תחילה, בחרו האם לעבור את התהליך כחייל חובה או כאיש קבע"
         : "",
-      component: isChooseCharacterPage ? (
-        <div className="practice-character-choice">
-          <button
-            type="button"
-            className="practice-character-button"
-            onClick={() => choosePracticeType("hova")}
-          >
-            <img src={hovaImg} alt="חיילי חובה" />
-            <span>חיילי חובה</span>
-          </button>
 
-          <button
-            type="button"
-            className="practice-character-button"
-            onClick={() => choosePracticeType("keva")}
-          >
-            <img src={kevaImg} alt="אנשי קבע" />
-            <span>אנשי קבע</span>
-          </button>
-        </div>
+      component: isChooseCharacterPage ? (
+        <>
+          <div className="practice-character-choice">
+            <button
+              type="button"
+              className={`practice-character-button ${
+                practiceHovaCompleted ? "practice-character-completed" : ""
+              }`}
+              onClick={() => choosePracticeType("hova")}
+            >
+              <img src={hovaImg} alt="חיילי חובה" />
+              <span>חיילי חובה</span>
+            </button>
+
+            <button
+              type="button"
+              className={`practice-character-button ${
+                practiceKevaCompleted ? "practice-character-completed" : ""
+              }`}
+              onClick={() => choosePracticeType("keva")}
+            >
+              <img src={kevaImg} alt="אנשי קבע" />
+              <span>אנשי קבע</span>
+            </button>
+          </div>
+
+          {(practiceHovaCompleted || practiceKevaCompleted) &&
+            !fruitStandCompleted && (
+              <p className="practice-progress-note">
+                מעולה! עכשיו השלימו גם את המסלול השני.
+              </p>
+            )}
+
+          {fruitStandCompleted && (
+            <p className="practice-progress-note">
+              כל הכבוד! השלמתם גם חובה וגם קבע.
+            </p>
+          )}
+        </>
       ) : (
         <FruitBasket
+          key={selectedPracticeType}
           type={selectedPracticeType}
-          isCompleted={fruitStandCompleted}
-          onComplete={() => completePracticePart("fruitStand")}
+          isCompleted={currentPracticeCompleted}
+          onComplete={completePracticePart}
         />
       ),
     },
@@ -134,11 +178,13 @@ function Practice({
   const handleModalAction = () => {
     if (!isModalActionAllowed) return;
 
-    setProgress({ activeItem: null });
+    setProgress({
+      activeItem: null,
+    });
   };
 
   const shouldShowBackInsideModal =
-    activeItem === "fruitStand" && isBasketPage && !fruitStandCompleted;
+    activeItem === "fruitStand" && isBasketPage && currentPracticeCompleted;
 
   const activeContent = activeItem ? content[activeItem] : null;
 

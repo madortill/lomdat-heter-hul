@@ -1,6 +1,6 @@
 import React from "react";
 
-function FruitBasketSvg({ clickedFruits = [] }) {
+function FruitBasketSvgHova({ clickedFruits = [] }) {
   const shouldShowStep = (index) => clickedFruits[index];
 
   return (
@@ -140,4 +140,4 @@ function FruitBasketSvg({ clickedFruits = [] }) {
 }
 
 
-export default FruitBasketSvg
+export default FruitBasketSvgHova

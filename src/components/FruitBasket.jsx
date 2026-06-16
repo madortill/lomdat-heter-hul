@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import FruitBasketSvg from "./FruitBasketSvg";
+import FruitBasketSvgHova from "../components/FruitBasketSvgHova";
+import FruitBasketSvgKeva from "../components/FruitBasketSvgKeva";
 
 import coconut from "../assets/images/practice/coconut.png";
 import dragonFruit from "../assets/images/practice/dragonFruit.png";
@@ -23,7 +24,7 @@ const fruitLabels = {
 
 const practiceData = {
   hova: {
-    successText: "כל הכבוד! השלמתם את סדר הנוהל הדיגיטלי לחיילי חובה.",
+    successText: "כל הכבוד! השלמתם את סדר הנוהל הידני לחיילי חובה.",
     steps: [
       {
         id: "submitRequest",
@@ -71,7 +72,7 @@ const practiceData = {
   },
 
   keva: {
-    successText: "כל הכבוד! השלמתם את סדר הנוהל הדיגיטלי לאנשי קבע.",
+    successText: "כל הכבוד! השלמתם את סדר הנוהל הידני לאנשי קבע.",
     steps: [
       {
         id: "submitRequest",
@@ -104,14 +105,8 @@ const practiceData = {
         fruit: "pineapple",
       },
       {
-        id: "statusUpdate",
-        title: "שלב שישי",
-        text: "עדכון סטטוס הבקשה במערכת.",
-        fruit: "mango",
-      },
-      {
         id: "flightReady",
-        title: "שלב שביעי",
+        title: "שלב שישי",
         text: "קבלת אישור סופי לפני היציאה לחו״ל.",
         fruit: "dragonFruit",
       },
@@ -132,7 +127,6 @@ function getOptionsForStep(steps, currentStepIndex) {
 
   const addOptionIfPossible = (step) => {
     if (options.length >= 3) return;
-
     if (usedStepIds.has(step.id)) return;
     if (usedFruitIds.has(step.fruit)) return;
 
@@ -141,10 +135,7 @@ function getOptionsForStep(steps, currentStepIndex) {
     usedFruitIds.add(step.fruit);
   };
 
-  const futureSteps = steps.filter(
-    (step, index) => index > currentStepIndex
-  );
-
+  const futureSteps = steps.filter((step, index) => index > currentStepIndex);
   shuffleArray(futureSteps).forEach(addOptionIfPossible);
 
   if (options.length < 3) {
@@ -173,13 +164,17 @@ function FruitBasket({ type = "hova", isCompleted = false, onComplete }) {
   const activeStepNumber = currentStepIndex + 1;
   const totalSteps = currentPractice.steps.length;
 
+  const orderedCompletedSteps = completed
+    ? currentPractice.steps
+    : currentPractice.steps.slice(0, clickedFruits.length);
+
   useEffect(() => {
     if (isCompleted) {
       setCompleted(true);
       setCurrentStepIndex(totalSteps - 1);
       setSelectedSteps(currentPractice.steps.map((step) => step.id));
       setClickedFruits(currentPractice.steps.map((step) => step.fruit));
-      setMessage(currentPractice.successText);
+      setMessage("");
       setOptions([]);
       return;
     }
@@ -212,7 +207,7 @@ function FruitBasket({ type = "hova", isCompleted = false, onComplete }) {
 
     if (nextStepIndex === totalSteps) {
       setCompleted(true);
-      setMessage(currentPractice.successText);
+      setMessage("");
       setOptions([]);
       onComplete?.();
       return;
@@ -225,10 +220,18 @@ function FruitBasket({ type = "hova", isCompleted = false, onComplete }) {
   return (
     <div className="fruit-basket-wrapper">
       <div className="fruit-practice-title">
-        {!completed && (
+        {!completed ? (
           <p>
             שלב {activeStepNumber} מתוך {totalSteps}
           </p>
+        ) : (
+          <div className="fruit-completed-steps">
+            {orderedCompletedSteps.map((step, index) => (
+              <span key={step.id} className="fruit-completed-step">
+                {index + 1}. {step.title}
+              </span>
+            ))}
+          </div>
         )}
       </div>
 
@@ -264,7 +267,11 @@ function FruitBasket({ type = "hova", isCompleted = false, onComplete }) {
       )}
 
       <div className="fruit-basket-area">
-        <FruitBasketSvg clickedFruits={clickedFruits} />
+        {type === "keva" ? (
+          <FruitBasketSvgKeva clickedFruits={clickedFruits} />
+        ) : (
+          <FruitBasketSvgHova clickedFruits={clickedFruits} />
+        )}
       </div>
 
       {message && (
