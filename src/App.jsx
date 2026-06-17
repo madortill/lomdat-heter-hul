@@ -16,7 +16,7 @@ import Practice from "./components/subjects/Practice";
 import GeneralProcedures from "./components/subjects/GeneralProcedures";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("enteringRequest");
+  const [currentPage, setCurrentPage] = useState("generalProcedures");
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   const [unlockedSubjects, setUnlockedSubjects] = useState([
