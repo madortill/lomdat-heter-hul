@@ -14,10 +14,17 @@ import ManualProcedure from "./components/subjects/ManualProcedure";
 import DigitalProcedure from "./components/subjects/DigitalProcedure";
 import Practice from "./components/subjects/Practice";
 import GeneralProcedures from "./components/subjects/GeneralProcedures";
+import Questions from "./components/Questions";
+import Tips from "./components/subjects/Tips";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("generalProcedures");
   const [isMapOpen, setIsMapOpen] = useState(false);
+  
+  const [questionNextSubject, setQuestionNextSubject] = useState(null);
+  const [questionPreviousSubject, setQuestionPreviousSubject] = useState(null);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [completedQuestions, setCompletedQuestions] = useState([]);
 
   const [unlockedSubjects, setUnlockedSubjects] = useState([
     "enteringRequest",
@@ -114,12 +121,38 @@ function App() {
     goTo(subjectName);
   };
 
+  const questionIndexBySubject = {
+    enteringRequest: 0,
+    manualProcedure: 1,
+    digitalProcedure: 2,
+    generalProcedures: 3,
+  };
+  const completeQuestion = (questionIndex) => {
+    setCompletedQuestions((prev) => {
+      if (prev.includes(questionIndex)) return prev;
+      return [...prev, questionIndex];
+    });
+  };
   const goNextSubject = () => {
     const currentIndex = subjectOrder.indexOf(currentPage);
     const nextSubject = subjectOrder[currentIndex + 1];
-
+  
+    if (currentPage === "generalProcedures") {
+      goTo("tips");
+      return;
+    }
+  
     if (!nextSubject) return;
-
+  
+    if (currentPage !== "practice") {
+      setQuestionPreviousSubject(currentPage);
+      setQuestionNextSubject(nextSubject);
+      setQuestionIndex(questionIndexBySubject[currentPage] || 0);
+      setCurrentPage("question");
+      setIsMapOpen(false);
+      return;
+    }
+  
     unlockSubject(nextSubject);
     goTo(nextSubject);
   };
@@ -132,11 +165,31 @@ function App() {
 
     goTo(previousSubject);
   };
+  const goNextFromQuestion = () => {
+    if (!questionNextSubject) return;
+  
+    unlockSubject(questionNextSubject);
+    goTo(questionNextSubject);
+  
+    setQuestionNextSubject(null);
+    setQuestionPreviousSubject(null);
+  };
+  
+  const goBackFromQuestion = () => {
+    if (!questionPreviousSubject) return;
+  
+    goTo(questionPreviousSubject);
+  
+    setQuestionNextSubject(null);
+    setQuestionPreviousSubject(null);
+  };
 
   const shouldShowMapButton =
-    currentPage !== "opening" &&
-    currentPage !== "intro" &&
-    currentPage !== "map";
+  currentPage !== "opening" &&
+  currentPage !== "intro" &&
+  currentPage !== "map" &&
+  currentPage !== "question" &&
+  currentPage !== "tips";
 
   return (
     <div className={`app ${currentPage}`}>
@@ -166,6 +219,15 @@ function App() {
           onSelectSubject={goToSubject}
         />
       )}
+{currentPage === "question" && (
+  <Questions
+    questionIndex={questionIndex}
+    isCompleted={completedQuestions.includes(questionIndex)}
+    onComplete={() => completeQuestion(questionIndex)}
+    onNext={goNextFromQuestion}
+    onBack={goBackFromQuestion}
+  />
+)}
 
       {currentPage === "enteringRequest" && (
         <EnteringRequest
@@ -233,6 +295,13 @@ function App() {
           }
         />
       )}
+
+{currentPage === "tips" && (
+  <Tips
+    onBack={() => goTo("generalProcedures")}
+    onNext={() => goTo("map")}
+  />
+)}
 
       {isMapOpen && (
         <div className="map-overlay">

@@ -48,7 +48,7 @@ body {
   background-image: url("../assets/images/backgrounds/sky.svg");
 }
 
-
+/* 
 .app.manualProcedure {
   background-image: url("../assets/images/backgrounds/sky.svg");
 }
@@ -59,9 +59,15 @@ body {
 
 .app.practice {
   background-image: url("../assets/images/backgrounds/sky.svg");
-}
+} */
 
 .app.generalProcedures {
+  background-image: url("../assets/images/backgrounds/sky.svg");
+}
+.app.question {
+  background-image: url("../assets/images/backgrounds/sky.svg");
+}
+.app.tips {
   background-image: url("../assets/images/backgrounds/sky.svg");
 }
 
