@@ -33,14 +33,28 @@
 
 .questions-clouds {
   position: absolute;
-  inset: 0;
+  top: 16rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 62rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 19rem);
+  column-gap: 14rem;
+  row-gap: 3.5rem;
+
+  justify-content: center;
+  align-items: center;
+
   z-index: 3;
 }
 
+
 .question-cloud {
-  position: absolute;
+  position: relative;
   width: 19rem;
-  min-height: 9.5rem;
+  min-height: auto;
 
   border: none;
   background: transparent;
@@ -50,6 +64,15 @@
   transition: transform 0.25s ease, filter 0.25s ease;
 }
 
+/* כבר לא צריך מיקומים ידניים */
+.question-cloud-1,
+.question-cloud-2,
+.question-cloud-3,
+.question-cloud-4 {
+  top: auto;
+  left: auto;
+  right: auto;
+}
 
 .question-cloud-img {
   width: 100%;
@@ -100,7 +123,7 @@
 }
 
 /* מיקום עננים */
-.question-cloud-1 {
+/* .question-cloud-1 {
   top: 17rem;
   left: 23rem;
 }
@@ -118,21 +141,21 @@
 .question-cloud-4 {
   top: 31rem;
   right: 23rem;
-}
+} */
 
 /* נכון */
 .question-cloud-correct {
   animation: correctCloudPop 0.35s ease-out;
   filter:
-    drop-shadow(0 0 0.6rem rgba(43, 190, 95, 0.95))
-    drop-shadow(0 0 1.4rem rgba(43, 190, 95, 0.85));
+    drop-shadow(0 0 0.6rem rgba(113, 221, 151, 0.95))
+    drop-shadow(0 0 1.4rem rgba(116, 230, 156, 0.85));
 }
 
 .question-cloud-correct:hover {
   transform: translateY(-0.45rem) scale(1.04);
   filter:
-    drop-shadow(0 0 0.8rem rgba(43, 190, 95, 1))
-    drop-shadow(0 0 1.8rem rgba(43, 190, 95, 0.95));
+    drop-shadow(0 0 0.8rem rgb(113, 221, 151, 0.95))
+    drop-shadow(0 0 1.8rem rgba(116, 230, 156, 0.85));
 }
 
 /* שגוי */

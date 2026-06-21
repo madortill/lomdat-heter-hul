@@ -95,7 +95,7 @@ function Practice({
         : "",
 
       text4: isChooseCharacterPage
-        ? "תחילה, בחרו האם לעבור את התהליך כחייל חובה או כאיש קבע"
+        ? "בחרו אם להתחיל כחייל חובה או כאיש קבע"
         : "",
 
       component: isChooseCharacterPage ? (
@@ -226,7 +226,7 @@ function Practice({
             )}
 
             {activeContent.text3 && (
-              <p className="microcopy">{activeContent.text3}</p>
+              <p className="infoCard-text">{activeContent.text3}</p>
             )}
 
             {activeContent.text4 && (

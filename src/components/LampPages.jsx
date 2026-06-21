@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import kevaImg from "../assets/images/enteringRequest/kevaImg.svg";
 import hovaImg from "../assets/images/enteringRequest/hovaImg.svg";
 import backBtnDiv from "../assets/images/enteringRequest/backBtnDiv.png";
@@ -30,12 +29,12 @@ function LampPages({
       },
       {
         color: "#FFEAC3",
-        text: 'במידה ובקשתו של משרת הקבע תקינה - תאושר בקשתו באופן אוטומטי תוך 24 שעות.',
+        text: "במידה ובקשתו של משרת הקבע תקינה - תאושר בקשתו באופן אוטומטי תוך 24 שעות.",
         img: cardIcon,
       },
       {
         color: "#FFEAC3",
-        text: 'במידה ובקשתו אינה תקינה - תישלל באופן אוטומטי תוך 24 שעות, ומשרת הקבע יופנה למשרד המשא"ן ביחידה (סיבות אפשריות לשלילת הבקשה הינן מחסור בימי חופשה, מדינה לא מאושרת, אינדיקציית מצ"ח או חריגה',
+        text: 'במידה ובקשתו אינה תקינה - תישלל באופן אוטומטי תוך 24 שעות, ומשרת הקבע יופנה למשרד המשא"ן ביחידה. סיבות אפשריות לשלילת הבקשה הינן מחסור בימי חופשה, מדינה לא מאושרת, אינדיקציית מצ"ח או חריגה.',
         img: cardIcon,
       },
     ],
@@ -43,7 +42,7 @@ function LampPages({
     hova: [
       {
         color: "#54463A",
-        text:'לתהליך זה נדרשת המלצת מפקד ישיר (גורם ממליץ) ואישור מפקד בדרגת רס"ן ומעלה (גורם מאשר).',
+        text: 'לתהליך זה נדרשת המלצת מפקד ישיר (גורם ממליץ) ואישור מפקד בדרגת רס"ן ומעלה (גורם מאשר).',
         img: cardIcon,
         lightText: true,
       },
@@ -83,6 +82,10 @@ function LampPages({
   const openCards = selectedType ? openCardsByType[selectedType] || [] : [];
   const activeVisuals = selectedType ? typeVisuals[selectedType] : null;
 
+  const isKevaCompleted = completedTypes.includes("keva");
+  const isHovaCompleted = completedTypes.includes("hova");
+  const areBothCompleted = isKevaCompleted && isHovaCompleted;
+
   const handleSelectType = (type) => {
     setSelectedType(type);
   };
@@ -116,13 +119,25 @@ function LampPages({
     <div className="lamp-pages">
       {!selectedType && (
         <div className="lamp-choice-page">
-          <p className="lamp-page-text">לחצו על אחת הדמויות:</p>
+          <p className="lamp-page-text">
+            {areBothCompleted
+              ? "כל הכבוד! השלמתם גם קבע וגם חובה"
+              : "כדי להשלים את העמוד, צריך לעבור גם על קבע וגם על חובה"}
+          </p>
+
+          <p className="lamp-page-subtext">לחצו על אחת הדמויות:</p>
 
           <div className="lamp-choice-wrapper">
             <button
-              className="lamp-choice-card"
+              className={`lamp-choice-card ${
+                isKevaCompleted ? "lamp-choice-completed" : "lamp-choice-needed"
+              }`}
               onClick={() => handleSelectType("keva")}
             >
+              {isKevaCompleted && <div className="lamp-choice-check">✔</div>}
+
+       
+
               <img id="keva-img" src={kevaImg} alt="איש קבע" />
               <span>איש קבע</span>
             </button>
@@ -130,9 +145,14 @@ function LampPages({
             <img src={lampImg} alt="lampImg" className="lamp-img" />
 
             <button
-              className="lamp-choice-card"
+              className={`lamp-choice-card ${
+                isHovaCompleted ? "lamp-choice-completed" : "lamp-choice-needed"
+              }`}
               onClick={() => handleSelectType("hova")}
             >
+              {isHovaCompleted && <div className="lamp-choice-check">✔</div>}
+
+
               <img src={hovaImg} alt="חייל חובה" />
               <span>חייל חובה</span>
             </button>
@@ -150,7 +170,7 @@ function LampPages({
             {selectedType === "keva" ? "איש קבע" : "חייל חובה"}
           </h3>
 
-          <p className="lamp-note">- לחצו על הכרטיסיות -</p>
+          <p className="lamp-note">- לחצו על כל הכרטיסיות -</p>
 
           <div
             className={`lamp-cards-wrapper ${

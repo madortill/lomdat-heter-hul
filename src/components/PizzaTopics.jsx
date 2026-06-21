@@ -43,14 +43,14 @@ function PizzaTopics({
       label: "פעולות של משרד המשא״ן",
       icon: pizzaMushrooms,
       layer: pizzaMushrooms,
-      text: 'משרד המשא"ן מזין את פרטי הטופס במערכת "אנשים".על ההזנה לכלול את כלל פרטי ההיתר כולל מדינות שהיה.',
+      text: 'משרד המשא"ן מזין את פרטי הטופס במערכת "אנשים". על ההזנה לכלול את כלל פרטי ההיתר כולל מדינות שהיה.',
     },
     {
       id: "leaves",
       label: "עיתוי הגשת הבקשה",
       icon: pizzaLeaves,
       layer: pizzaLeaves,
-      text: 'ע"פ הפקודות חייל נדרש להגיש בקשת היתר יצאה לחו"ל 21 ימים לפחות ממועד היציאה',
+      text: 'ע"פ הפקודות חייל נדרש להגיש בקשת היתר יציאה לחו"ל 21 ימים לפחות ממועד היציאה',
     },
   ];
 
@@ -60,7 +60,7 @@ function PizzaTopics({
       label: "סמכות אישור יציאה לחו״ל",
       icon: pizzaBase,
       layer: pizzaBase,
-      text: 'גדים וקצינים עד לדרגת רס"ן – סמכות סא"ל לאישור.',
+      text: 'נגדים וקצינים עד לדרגת רס"ן – סמכות סא"ל לאישור.',
     },
     {
       id: "sauce",
@@ -74,7 +74,7 @@ function PizzaTopics({
       label: "אישור ביטחון מידע",
       icon: pizzaCheese,
       layer: pizzaCheese,
-      text: 'נדרש בחתימה של משרד בטחון מידע על-גבי טופס הבקשה',
+      text: "נדרש בחתימה של משרד בטחון מידע על-גבי טופס הבקשה",
     },
     {
       id: "olives",
@@ -87,23 +87,47 @@ function PizzaTopics({
 
   const topics = type === "keva" ? kevaTopics : hovaTopics;
 
+  const safeAddedTopics = addedTopics || [];
   const activeTopic = topics.find((topic) => topic.id === selectedTopic);
+
+  const nextTopicIndex = safeAddedTopics.length;
+  const nextTopic = topics[nextTopicIndex];
+
+  const isTopicAdded = (topicId) => safeAddedTopics.includes(topicId);
+
+  const isTopicNext = (topicId) => {
+    return nextTopic?.id === topicId;
+  };
+
+  const isTopicAvailable = (topicId) => {
+    return isTopicAdded(topicId) || isTopicNext(topicId);
+  };
 
   const addTopicToPizza = (topicId) => {
     const topicExists = topics.some((topic) => topic.id === topicId);
-
     if (!topicExists) return;
+
+    const topicAlreadyAdded = safeAddedTopics.includes(topicId);
+
+    if (topicAlreadyAdded) {
+      setSelectedTopic(topicId);
+      return;
+    }
+
+    if (!isTopicNext(topicId)) {
+      return;
+    }
 
     setSelectedTopic(topicId);
 
     setAddedTopics((prev) => {
-      const safePrev = prev || [];
+      const currentTopics = prev || [];
 
-      if (safePrev.includes(topicId)) {
-        return safePrev;
+      if (currentTopics.includes(topicId)) {
+        return currentTopics;
       }
 
-      const updatedTopics = [...safePrev, topicId];
+      const updatedTopics = [...currentTopics, topicId];
 
       if (updatedTopics.length === topics.length) {
         onComplete?.();
@@ -114,6 +138,16 @@ function PizzaTopics({
   };
 
   const handleDragStart = (event, topicId) => {
+    if (!isTopicAvailable(topicId)) {
+      event.preventDefault();
+      return;
+    }
+
+    if (!isTopicNext(topicId) && !isTopicAdded(topicId)) {
+      event.preventDefault();
+      return;
+    }
+
     event.dataTransfer.setData("topicId", topicId);
   };
 
@@ -131,29 +165,39 @@ function PizzaTopics({
 
   return (
     <div className="pizza-topics-wrapper">
-      <div className="topics-container">
-        {topics.map((topic) => (
-          <button
-            key={topic.id}
-            type="button"
-            className={`pizza-topic-button ${
-              selectedTopic === topic.id ? "active" : ""
-            } ${addedTopics.includes(topic.id) ? "added" : ""}`}
-            draggable
-            onDragStart={(event) => handleDragStart(event, topic.id)}
-            onClick={() => addTopicToPizza(topic.id)}
-          >
-            <span className="pizza-topic-label">{topic.label}</span>
 
-            <img src={topic.icon} alt={topic.label} className="pizza-topic" />
-          </button>
-        ))}
+      <div className="topics-container">
+        {topics.map((topic, index) => {
+          const added = isTopicAdded(topic.id);
+          const next = isTopicNext(topic.id);
+          const locked = !added && !next;
+
+          return (
+            <button
+              key={topic.id}
+              type="button"
+              className={`pizza-topic-button ${
+                selectedTopic === topic.id ? "active" : ""
+              } ${added ? "added" : ""} ${next ? "next-topic" : ""} ${
+                locked ? "locked-topic" : ""
+              }`}
+              draggable={!locked}
+              onDragStart={(event) => handleDragStart(event, topic.id)}
+              onClick={() => addTopicToPizza(topic.id)}
+            >
+
+
+
+              <span className="pizza-topic-label">{topic.label}</span>
+
+              <img src={topic.icon} alt={topic.label} className="pizza-topic" />
+            </button>
+          );
+        })}
       </div>
 
       {type === "keva" && (
-        <p className="pizza-keva-note">
-          שימו לב: בקבע אין עיתוי הגשת בקשה
-        </p>
+        <p className="pizza-keva-note">שימו לב: בקבע אין עיתוי הגשת בקשה</p>
       )}
 
       <div
@@ -165,7 +209,7 @@ function PizzaTopics({
 
         <div className="pizza-main">
           {topics
-            .filter((topic) => addedTopics.includes(topic.id))
+            .filter((topic) => safeAddedTopics.includes(topic.id))
             .map((topic, index) => (
               <img
                 key={topic.id}

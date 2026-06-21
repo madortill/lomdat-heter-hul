@@ -211,8 +211,30 @@
 .microcopy {
   font-family: "rubik";
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
+
+  animation: microcopyHint 2.4s ease-in-out infinite;
+}
+
+@keyframes microcopyHint {
+  0% {
+    transform: scale(1);
+    opacity: 0.88;
+    text-shadow: 0 0 0 rgba(7, 67, 93, 0);
+  }
+
+  50% {
+    transform: scale(1.025);
+    opacity: 1;
+    text-shadow: 0 0 0.55rem rgba(7, 67, 93, 0.22);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.88;
+    text-shadow: 0 0 0 rgba(7, 67, 93, 0);
+  }
 }
 
 .close-button {
@@ -238,6 +260,7 @@
 
 .close-button:disabled {
   pointer-events: none;
+  display: none;
 }
 
 /* ---------- Next button ---------- */
@@ -643,7 +666,7 @@
 .lamp-note {
   margin: 0.3rem 0 0;
   font-family: "rubik-bold";
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #006692;
 }
 
@@ -822,6 +845,79 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+.lamp-page-subtext {
+  margin: 0.4rem 0 1.4rem;
+  font-family: "rubik-bold";
+  font-size: 1.1rem;
+  color: #07435d;
+}
+
+.lamp-choice-card {
+  position: relative;
+}
+
+.lamp-choice-completed {
+  filter: drop-shadow(0 0 0.7rem rgba(83, 205, 127, 0.9));
+}
+
+.lamp-choice-needed {
+  animation: lampNeededPulse 1.8s ease-in-out infinite;
+}
+
+.lamp-choice-check {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+
+  width: 1.7rem;
+  height: 1.7rem;
+
+  border-radius: 50%;
+  background: #4caf50;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "rubik-bold";
+  font-size: 1rem;
+  z-index: 5;
+}
+
+.lamp-choice-badge {
+  position: absolute;
+  top: -0.8rem;
+  right: 50%;
+  transform: translateX(50%);
+
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.9);
+  color: #07435d;
+
+  font-family: "rubik-bold";
+  font-size: 0.8rem;
+  white-space: nowrap;
+
+  box-shadow: 0 0 0.5rem rgba(7, 67, 93, 0.18);
+  z-index: 6;
+}
+
+@keyframes lampNeededPulse {
+  0% {
+    filter: drop-shadow(0 0 0.2rem rgba(255, 196, 97, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 0.9rem rgba(255, 196, 97, 0.9));
+  }
+
+  100% {
+    filter: drop-shadow(0 0 0.2rem rgba(255, 196, 97, 0.3));
   }
 }
 

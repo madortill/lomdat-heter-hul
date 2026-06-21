@@ -18,7 +18,7 @@ import Questions from "./components/Questions";
 import Tips from "./components/subjects/Tips";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("generalProcedures");
+  const [currentPage, setCurrentPage] = useState("manualProcedure");
   const [isMapOpen, setIsMapOpen] = useState(false);
   
   const [questionNextSubject, setQuestionNextSubject] = useState(null);

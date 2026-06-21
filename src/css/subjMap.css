@@ -4,11 +4,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
   }
   
+  /* רק במפה הרגילה */
+.subj-map:not(.overlay-map) {
+  margin-top: 5rem;
+}
   .subj-map svg {
     max-width: 100%;
     height: auto;
+  }
+  .map-title-text {
+    font-family: "rubik-bold";
+    font-size: 2.5rem;
+    fill: #07435d;
+    pointer-events: none;
+    
+  }
+  
+  .map-instruction-text {
+    font-family: "rubik-bold";
+    font-size: 1.2rem;
+    fill: #1b7ba4;
+    pointer-events: none;
   }
   
   .map-subject.unlocked {
@@ -44,6 +63,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
   }
   
   .map-modal {
