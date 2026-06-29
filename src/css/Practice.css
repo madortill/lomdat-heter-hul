@@ -188,8 +188,34 @@
   .fruit-basket-success-message {
     font-size: 1.5rem;
   }
+  .practice-character-button {
+    position: relative;
+  }
+  
   .practice-character-completed {
-    opacity: 0.75;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 0.7rem #006692e7);
+  }
+  
+  .practice-character-check {
+    position: absolute;
+    top: 0.4rem;
+    left: -2rem;
+  
+    width: 1.7rem;
+    height: 1.7rem;
+  
+    border-radius: 50%;
+    background: #4caf50;
+    color: white;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    font-family: "rubik-bold";
+    font-size: 1rem;
+    z-index: 5;
   }
 
   .practice-progress-note {
@@ -199,10 +225,7 @@
     color: #006692;
     text-align: center;
   }
-  .practice-character-completed {
-    opacity: 0.65;
-    filter: grayscale(0.2);
-  }
+
   
   .practice-progress-note {
     margin-top: 1rem;

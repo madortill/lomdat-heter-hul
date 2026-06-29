@@ -100,29 +100,37 @@ function Practice({
 
       component: isChooseCharacterPage ? (
         <>
-          <div className="practice-character-choice">
-            <button
-              type="button"
-              className={`practice-character-button ${
-                practiceHovaCompleted ? "practice-character-completed" : ""
-              }`}
-              onClick={() => choosePracticeType("hova")}
-            >
-              <img src={hovaImg} alt="חיילי חובה" />
-              <span>חיילי חובה</span>
-            </button>
+<div className="practice-character-choice">
+  <button
+    type="button"
+    className={`practice-character-button ${
+      practiceHovaCompleted ? "practice-character-completed" : ""
+    }`}
+    onClick={() => choosePracticeType("hova")}
+  >
+    {practiceHovaCompleted && (
+      <div className="practice-character-check">✔</div>
+    )}
 
-            <button
-              type="button"
-              className={`practice-character-button ${
-                practiceKevaCompleted ? "practice-character-completed" : ""
-              }`}
-              onClick={() => choosePracticeType("keva")}
-            >
-              <img src={kevaImg} alt="אנשי קבע" />
-              <span>אנשי קבע</span>
-            </button>
-          </div>
+    <img src={hovaImg} alt="חיילי חובה" />
+    <span>חיילי חובה</span>
+  </button>
+
+  <button
+    type="button"
+    className={`practice-character-button ${
+      practiceKevaCompleted ? "practice-character-completed" : ""
+    }`}
+    onClick={() => choosePracticeType("keva")}
+  >
+    {practiceKevaCompleted && (
+      <div className="practice-character-check">✔</div>
+    )}
+
+    <img src={kevaImg} alt="אנשי קבע" />
+    <span>אנשי קבע</span>
+  </button>
+</div>
 
           {(practiceHovaCompleted || practiceKevaCompleted) &&
             !fruitStandCompleted && (

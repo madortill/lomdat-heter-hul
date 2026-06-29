@@ -10,6 +10,7 @@ import IntroPage from "./mainPages/IntroPage";
 import EndingPage from "./mainPages/EndingPage";
 
 import SubjMap from "./components/SubjMap";
+import MobileWarningOverlay from "./components/MobileWarningOverlay";
 
 import EnteringRequest from "./components/subjects/EnteringRequest";
 import ManualProcedure from "./components/subjects/ManualProcedure";
@@ -231,6 +232,8 @@ function App() {
     currentPage !== "ending";
 
   return (
+    <>
+     <MobileWarningOverlay />
     <div className={`app ${currentPage}`}>
       <img src={til} alt="til" className="til-logo" />
       <img src={bahad11Icon} alt="bahad11Icon" className="bahad11Icon" />
@@ -369,6 +372,7 @@ function App() {
         </div>
       )}
     </div>
+    </>
   );
 }
 
