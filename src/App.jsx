@@ -7,6 +7,8 @@ import mapBtn from "./assets/images/mapBtn.svg";
 
 import OpeningPage from "./mainPages/OpeningPage";
 import IntroPage from "./mainPages/IntroPage";
+import EndingPage from "./mainPages/EndingPage";
+
 import SubjMap from "./components/SubjMap";
 
 import EnteringRequest from "./components/subjects/EnteringRequest";
@@ -17,67 +19,85 @@ import GeneralProcedures from "./components/subjects/GeneralProcedures";
 import Questions from "./components/Questions";
 import Tips from "./components/subjects/Tips";
 
+const initialUnlockedSubjects = ["enteringRequest"];
+
+const initialSubjectsProgress = {
+  enteringRequest: {
+    activeItem: null,
+    currentStep: 0,
+    completedItems: [],
+
+    cafeClickedCroissants: [],
+    cafeCompleted: false,
+
+    eiffelPage: 0,
+    eiffelCompletedPages: [],
+
+    popupContent: null,
+
+    lampSelectedType: null,
+    lampOpenCardsByType: {
+      keva: [],
+      hova: [],
+    },
+    lampCompletedTypes: [],
+  },
+
+  manualProcedure: {
+    activeItem: null,
+    currentStep: 0,
+    completedItems: [],
+
+    gelateriaPage: 0,
+
+    gelateriaHovaSelectedFlavor: null,
+    gelateriaHovaClickedFlavors: [],
+    gelateriaHovaCompleted: false,
+
+    gelateriaKevaSelectedFlavor: null,
+    gelateriaKevaClickedFlavors: [],
+    gelateriaKevaCompleted: false,
+
+    pizzeriaCompleted: false,
+    pisaCompleted: false,
+  },
+
+  digitalProcedure: {
+    activeItem: null,
+    currentStep: 0,
+    completedItems: [],
+  },
+
+  practice: {
+    activeItem: null,
+    currentStep: 0,
+    completedItems: [],
+  },
+
+  generalProcedures: {
+    activeItem: null,
+    currentStep: 0,
+    completedItems: [],
+  },
+};
+
 function App() {
-  const [currentPage, setCurrentPage] = useState("manualProcedure");
+  const [currentPage, setCurrentPage] = useState("opening");
   const [isMapOpen, setIsMapOpen] = useState(false);
-  
+
   const [questionNextSubject, setQuestionNextSubject] = useState(null);
   const [questionPreviousSubject, setQuestionPreviousSubject] = useState(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [completedQuestions, setCompletedQuestions] = useState([]);
+  const [tipsCompleted, setTipsCompleted] = useState(false);
 
-  const [unlockedSubjects, setUnlockedSubjects] = useState([
-    "enteringRequest",
-  ]);
+  const [unlockedSubjects, setUnlockedSubjects] = useState(
+    initialUnlockedSubjects
+  );
 
-  const [subjectsProgress, setSubjectsProgress] = useState({
-    enteringRequest: {
-      activeItem: null,
-      currentStep: 0,
-      completedItems: [],
-
-      cafeClickedCroissants: [],
-      cafeCompleted: false,
-
-      eiffelPage: 0,
-      eiffelCompletedPages: [],
-
-      popupContent: null,
-
-      lampSelectedType: null,
-      lampOpenCardsByType: {
-        keva: [],
-        hova: [],
-      },
-      lampCompletedTypes: [],
-    },
-
-    manualProcedure: {
-      activeItem: null,
-      currentStep: 0,
-      completedItems: [],
-    
-      gelateriaPage: 0,
-    
-      gelateriaHovaSelectedFlavor: null,
-      gelateriaHovaClickedFlavors: [],
-      gelateriaHovaCompleted: false,
-    
-      gelateriaKevaSelectedFlavor: null,
-      gelateriaKevaClickedFlavors: [],
-      gelateriaKevaCompleted: false,
-    
-      pizzeriaCompleted: false,
-      pisaCompleted: false,
-    },
-    digitalProcedure: {},
-    activeItem: null,
-    currentStep: 0,
-    completedItems: [],
-  
-    practice: {},
-    generalProcedures: {},
-  });
+  const [subjectsProgress, setSubjectsProgress] = useState(
+    initialSubjectsProgress
+  );
 
   const subjectOrder = [
     "enteringRequest",
@@ -86,6 +106,13 @@ function App() {
     "practice",
     "generalProcedures",
   ];
+
+  const questionIndexBySubject = {
+    enteringRequest: 0,
+    manualProcedure: 1,
+    digitalProcedure: 2,
+    generalProcedures: 3,
+  };
 
   const updateSubjectProgress = (subjectName, updates) => {
     setSubjectsProgress((prev) => ({
@@ -116,34 +143,44 @@ function App() {
     setIsMapOpen(false);
   };
 
+  const restartLearning = () => {
+    setCurrentPage("opening");
+    setIsMapOpen(false);
+
+    setQuestionNextSubject(null);
+    setQuestionPreviousSubject(null);
+    setQuestionIndex(0);
+    setCompletedQuestions([]);
+
+    setTipsCompleted(false);
+
+    setUnlockedSubjects(initialUnlockedSubjects);
+    setSubjectsProgress(initialSubjectsProgress);
+  };
+
   const goToSubject = (subjectName) => {
     if (!unlockedSubjects.includes(subjectName)) return;
     goTo(subjectName);
   };
 
-  const questionIndexBySubject = {
-    enteringRequest: 0,
-    manualProcedure: 1,
-    digitalProcedure: 2,
-    generalProcedures: 3,
-  };
-  const completeQuestion = (questionIndex) => {
+  const completeQuestion = (currentQuestionIndex) => {
     setCompletedQuestions((prev) => {
-      if (prev.includes(questionIndex)) return prev;
-      return [...prev, questionIndex];
+      if (prev.includes(currentQuestionIndex)) return prev;
+      return [...prev, currentQuestionIndex];
     });
   };
+
   const goNextSubject = () => {
     const currentIndex = subjectOrder.indexOf(currentPage);
     const nextSubject = subjectOrder[currentIndex + 1];
-  
+
     if (currentPage === "generalProcedures") {
       goTo("tips");
       return;
     }
-  
+
     if (!nextSubject) return;
-  
+
     if (currentPage !== "practice") {
       setQuestionPreviousSubject(currentPage);
       setQuestionNextSubject(nextSubject);
@@ -152,7 +189,7 @@ function App() {
       setIsMapOpen(false);
       return;
     }
-  
+
     unlockSubject(nextSubject);
     goTo(nextSubject);
   };
@@ -165,31 +202,33 @@ function App() {
 
     goTo(previousSubject);
   };
+
   const goNextFromQuestion = () => {
     if (!questionNextSubject) return;
-  
+
     unlockSubject(questionNextSubject);
     goTo(questionNextSubject);
-  
+
     setQuestionNextSubject(null);
     setQuestionPreviousSubject(null);
   };
-  
+
   const goBackFromQuestion = () => {
     if (!questionPreviousSubject) return;
-  
+
     goTo(questionPreviousSubject);
-  
+
     setQuestionNextSubject(null);
     setQuestionPreviousSubject(null);
   };
 
   const shouldShowMapButton =
-  currentPage !== "opening" &&
-  currentPage !== "intro" &&
-  currentPage !== "map" &&
-  currentPage !== "question" &&
-  currentPage !== "tips";
+    currentPage !== "opening" &&
+    currentPage !== "intro" &&
+    currentPage !== "map" &&
+    currentPage !== "question" &&
+    currentPage !== "tips" &&
+    currentPage !== "ending";
 
   return (
     <div className={`app ${currentPage}`}>
@@ -209,9 +248,7 @@ function App() {
         <OpeningPage onStart={() => goTo("intro")} />
       )}
 
-      {currentPage === "intro" && (
-        <IntroPage onNext={() => goTo("map")} />
-      )}
+      {currentPage === "intro" && <IntroPage onNext={() => goTo("map")} />}
 
       {currentPage === "map" && (
         <SubjMap
@@ -219,15 +256,16 @@ function App() {
           onSelectSubject={goToSubject}
         />
       )}
-{currentPage === "question" && (
-  <Questions
-    questionIndex={questionIndex}
-    isCompleted={completedQuestions.includes(questionIndex)}
-    onComplete={() => completeQuestion(questionIndex)}
-    onNext={goNextFromQuestion}
-    onBack={goBackFromQuestion}
-  />
-)}
+
+      {currentPage === "question" && (
+        <Questions
+          questionIndex={questionIndex}
+          isCompleted={completedQuestions.includes(questionIndex)}
+          onComplete={() => completeQuestion(questionIndex)}
+          onNext={goNextFromQuestion}
+          onBack={goBackFromQuestion}
+        />
+      )}
 
       {currentPage === "enteringRequest" && (
         <EnteringRequest
@@ -296,12 +334,21 @@ function App() {
         />
       )}
 
-{currentPage === "tips" && (
-  <Tips
-    onBack={() => goTo("generalProcedures")}
-    onNext={() => goTo("map")}
-  />
-)}
+      {currentPage === "tips" && (
+        <Tips
+          onBack={() => goTo("generalProcedures")}
+          onNext={() => goTo("ending")}
+          tipsCompleted={tipsCompleted}
+          onCompleteTips={() => setTipsCompleted(true)}
+        />
+      )}
+
+      {currentPage === "ending" && (
+        <EndingPage
+          onRestart={restartLearning}
+          onBackToLearn={() => goTo("map")}
+        />
+      )}
 
       {isMapOpen && (
         <div className="map-overlay">

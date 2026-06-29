@@ -1,0 +1,227 @@
+.ending-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    direction: rtl;
+  }
+  
+  /* תוכן מרכזי - מופיע רק אחרי נחיתת המטוס */
+  .ending-content {
+    position: relative;
+    z-index: 5;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    padding-top: 5.2rem;
+    text-align: center;
+  
+    opacity: 0;
+    animation: endingContentFadeIn 0.9s ease-out forwards;
+    animation-delay: 2.1s;
+  }
+  
+  @keyframes endingContentFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(1.2rem);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .ending-title {
+    margin: 0 0 1.4rem;
+    font-family: "rubik-bold";
+    font-size: 3rem;
+    color: #006692;
+  }
+  
+  .ending-text {
+    margin: 0;
+    font-family: "rubik-bold";
+    font-size: 2rem;
+    line-height: 1.45;
+    color: #006692;
+  }
+  
+  /* כפתורים */
+  .ending-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+  .ending-back-learn-btn {
+    background: rgb(255, 255, 255);
+    color: #006692;
+  border: none;
+    padding: 0.45rem 1.4rem;
+    border-radius: 10px;
+  
+    font-family: "rubik-bold";
+    font-size: 1rem;
+  
+    cursor: pointer;
+  
+    box-shadow: 0 0.25rem 0.7rem rgba(7, 67, 93, 0.18);
+    transition: transform 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+  }
+  
+  .ending-back-learn-btn:hover {
+    transform: translateY(-0.12rem) scale(1.03);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 0.35rem 0.9rem rgba(7, 67, 93, 0.25);
+  }
+  
+  .ending-cloud-button {
+    position: relative;
+  
+    width: 14rem;
+    height: 7rem;
+  
+    border: none;
+    background: transparent;
+    padding: 0;
+  
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+  
+  .ending-cloud-button:hover {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 0.7rem rgba(0, 102, 146, 0.35));
+  }
+  
+  .ending-cloud-btn {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  
+  .ending-cloud-btn-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  
+    transform: translate(-50%, -50%);
+  
+    font-family: "rubik-bold";
+    font-size: 1.65rem;
+    line-height: 1.15;
+    color: #006692;
+    text-align: center;
+  
+    pointer-events: none;
+  }
+  
+  /* מטוס נוחת */
+  .ending-plane {
+    position: absolute;
+    z-index: 4;
+  
+    bottom: 2.3rem;
+    left: 50%;
+  
+    width: 50rem;
+    pointer-events: none;
+  
+    animation: endingPlaneLanding 2.2s ease-out forwards;
+  }
+  
+  @keyframes endingPlaneLanding {
+    0% {
+      transform: translateX(-50%) translateY(-20rem) scale(0.25);
+      opacity: 0;
+    }
+  
+    20% {
+      opacity: 1;
+    }
+  
+    70% {
+      transform: translateX(-50%) translateY(-3rem) scale(0.85);
+    }
+  
+    100% {
+      transform: translateX(-50%) translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* עננים */
+  .ending-clouds {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  .ending-cloud {
+    position: absolute;
+    opacity: 0.75;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  
+  .ending-cloud1 {
+    top: 5rem;
+    left: 10rem;
+    width: 15rem;
+    animation-name: endingCloudRight;
+    animation-duration: 22s;
+  }
+  
+  .ending-cloud2 {
+    top: 4rem;
+    right: 12rem;
+    width: 14rem;
+    animation-name: endingCloudLeft;
+    animation-duration: 25s;
+  }
+  
+  .ending-cloud3 {
+    top: 13rem;
+    left: -2rem;
+    width: 12rem;
+    animation-name: endingCloudRight;
+    animation-duration: 26s;
+  }
+  
+  .ending-cloud4 {
+    top: 13rem;
+    right: -1rem;
+    width: 13rem;
+    animation-name: endingCloudLeft;
+    animation-duration: 24s;
+  }
+  
+  @keyframes endingCloudRight {
+    from {
+      transform: translateX(-2rem);
+    }
+  
+    to {
+      transform: translateX(2rem);
+    }
+  }
+  
+  @keyframes endingCloudLeft {
+    from {
+      transform: translateX(2rem);
+    }
+  
+    to {
+      transform: translateX(-2rem);
+    }
+  }

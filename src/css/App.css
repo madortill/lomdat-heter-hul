@@ -70,6 +70,9 @@ body {
 .app.tips {
   background-image: url("../assets/images/backgrounds/sky.svg");
 }
+.app.ending  {
+  background-image: url("../assets/images/backgrounds/opening.svg");
+}
 
 
 .til-logo {

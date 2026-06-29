@@ -83,8 +83,8 @@ function Practice({
       text1: isChooseCharacterPage
         ? "איך תעשו את זה?"
         : selectedPracticeType === "hova"
-        ? "חיילי חובה"
-        : "אנשי קבע",
+        ? "חיילי חובה - נוהל דיגיטלי"
+        : "אנשי קבע - נוהל דיגיטלי",
 
       text2: isChooseCharacterPage
         ? "בתרגול הבא, אתם תצטרכו להרכיב את סלסילת הפירות הנכונה"
@@ -254,7 +254,7 @@ function Practice({
           src={nextBtnText}
           alt="הבא"
           className={`intro-general-btn intro-general-next ${
-            isSubjectCompleted ? "" : "intro-general-btn-disabled"
+            isSubjectCompleted ? "" : "disabled-general-btn no-mouse-events"
           }`}
           onClick={isSubjectCompleted ? onNext : undefined}
         />

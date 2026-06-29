@@ -313,35 +313,41 @@ function EnteringRequest({
         </div>
       )}
 
-      {popupContent && (
-        <div className="fullscreen-popup">
-          <div className="popup-card">
-            <button
-              className="popup-card-close"
-              onClick={() => setProgress({ popupContent: null })}
-            >
-              ×
-            </button>
+{popupContent && (
+  <div
+    className="fullscreen-popup"
+    onClick={() => setProgress({ popupContent: null })}
+  >
+    <div
+      className="popup-card"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <button
+        className="popup-card-close"
+        onClick={() => setProgress({ popupContent: null })}
+      >
+        ×
+      </button>
 
-            {popupContent.image && (
-              <img
-                className="popup-card-title-img"
-                src={popupContent.image}
-                alt=""
-              />
-            )}
-
-            <p>{popupContent.text}</p>
-          </div>
-        </div>
+      {popupContent.image && (
+        <img
+          className="popup-card-title-img"
+          src={popupContent.image}
+          alt=""
+        />
       )}
+
+      <p>{popupContent.text}</p>
+    </div>
+  </div>
+)}
 
       <div className="intro-general-nav">
         <img
           src={nextBtnText}
           alt="הבא"
           className={`intro-general-btn intro-general-next ${
-            isSubjectCompleted ? "" : "intro-general-btn-disabled"
+            isSubjectCompleted ? "" : "disabled-general-btn no-mouse-events"
           }`}
           onClick={isSubjectCompleted ? onNext : undefined}
         />

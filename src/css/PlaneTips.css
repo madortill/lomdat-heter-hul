@@ -78,7 +78,6 @@
   .road-text {
     position: relative;
     z-index: 31;
-  
     width: 100%;
     text-align: center;
     pointer-events: none;
@@ -91,7 +90,7 @@
   }
   
   .drive-description {
-    width: 70%;
+    width: 60%;
     margin: auto;
   
     color: white;

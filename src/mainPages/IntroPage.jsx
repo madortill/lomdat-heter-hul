@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/IntroPage.css";
+
 import planeText from "../assets/images/introPage/planeText.svg";
 import nextBtnText from "../assets/images/introPage/nextBtnText.svg";
 import backBtnText from "../assets/images/introPage/backBtnText.svg";
@@ -8,8 +9,8 @@ import nextBubble from "../assets/images/introPage/nextBubble.png";
 import cloud from "../assets/images/openingPage/cloud.png";
 
 const bubbleTexts = [
-  "היי! אני אהיה הדיילת שלכם במסע להיתר טופס חול! במהלך הלומדה נעבור בין המדינות השונות ונלמד עוד נושאים הקשורים להיתר חול! בטוחה שתעזרו לי להשלים את המסע בהצלחה!",
-  "חייל בשירות חובה ובשירות קבע רשאי לצאת לחול במהלך שירותו הצבאי במסגרת מגבלות ימי החופשה להם זכאי ובסופי שבוע וחגים. זכאות זו כפופה לאישור מפקדים, ולאישור גורמים נוספים כפי שיפורט להלן.",
+  'היי! אני אהיה הדיילת שלכם במסע להיתר טופס חו”ל! במהלך הלומדה נעבור בין המדינות השונות ונלמד עוד נושאים הקשורים להיתר חו”ל! בטוחה שתעזרו לי להשלים את המסע בהצלחה!',
+  'חייל בשירות חובה ובשירות קבע רשאי לצאת לחו”ל במהלך שירותו הצבאי במסגרת מגבלות ימי החופשה להם זכאי ובסופי שבוע וחגים. זכאות זו כפופה לאישור מפקדים, ולאישור גורמים נוספים כפי שיפורט להלן.',
   "יש גם אופציה של בקשת היתר חו”ל בדיגיטל. דבר המאפשר לחיילי חובה ואנשי קבע להגיש בקשת יציאה לחו”ל בדיגיטל באזור האישי באתר צה”ל ואישור המפקד יבוצע במערכת אנשים.",
   "יש לוודא כי הזנת ההיתר תתבצע עד יום אחד לפחות לפני יציאתו של הפרט לחו”ל.",
 ];
@@ -19,6 +20,7 @@ const introPages = ["planeTextPage", "dayeletBubblePage"];
 function IntroPage({ onNext }) {
   const [currentIntroPage, setCurrentIntroPage] = useState(0);
   const [currentBubbleText, setCurrentBubbleText] = useState(0);
+  const [hasSeenAllBubbleTexts, setHasSeenAllBubbleTexts] = useState(false);
 
   const isFirstIntroPage = currentIntroPage === 0;
   const isLastIntroPage = currentIntroPage === introPages.length - 1;
@@ -26,13 +28,15 @@ function IntroPage({ onNext }) {
   const isFirstText = currentBubbleText === 0;
   const isLastText = currentBubbleText === bubbleTexts.length - 1;
 
+  const isGeneralNextLocked = isLastIntroPage && !hasSeenAllBubbleTexts;
+
   const handleNextIntroPage = () => {
     if (!isLastIntroPage) {
       setCurrentIntroPage(currentIntroPage + 1);
       return;
     }
 
-    if (isLastIntroPage && isLastText) {
+    if (isLastIntroPage && hasSeenAllBubbleTexts) {
       onNext();
     }
   };
@@ -45,7 +49,13 @@ function IntroPage({ onNext }) {
 
   const handleNextBubbleText = () => {
     if (!isLastText) {
-      setCurrentBubbleText(currentBubbleText + 1);
+      const nextTextIndex = currentBubbleText + 1;
+
+      setCurrentBubbleText(nextTextIndex);
+
+      if (nextTextIndex === bubbleTexts.length - 1) {
+        setHasSeenAllBubbleTexts(true);
+      }
     }
   };
 
@@ -75,12 +85,16 @@ function IntroPage({ onNext }) {
 
       {currentIntroPage === 1 && (
         <div className="container-intro page2">
-          <img src={dayeletPlane} alt="dayeletPlane" className="dayelet-plane" />
+          <img
+            src={dayeletPlane}
+            alt="dayeletPlane"
+            className="dayelet-plane"
+          />
 
           <div className="bubble-nav-wrapper">
             <img
               src={nextBubble}
-              alt="back"
+              alt="חזור"
               className={`nav-bubble next-bubble-left ${
                 isFirstText ? "hidden-bubble-btn" : ""
               }`}
@@ -95,12 +109,18 @@ function IntroPage({ onNext }) {
 
             <img
               src={nextBubble}
-              alt="next"
+              alt="הבא"
               className={`nav-bubble next-bubble-right ${
                 isLastText ? "hidden-bubble-btn" : ""
               }`}
               onClick={!isLastText ? handleNextBubbleText : undefined}
             />
+
+            {!hasSeenAllBubbleTexts && (
+              <p className="dayelet-bubble-hint">
+                דפדפו בין כל הכרטיסיות כדי להמשיך
+              </p>
+            )}
           </div>
         </div>
       )}
@@ -119,13 +139,9 @@ function IntroPage({ onNext }) {
           src={nextBtnText}
           alt="הבא"
           className={`intro-general-btn intro-general-next ${
-            isLastIntroPage && !isLastText ? "disabled-general-btn" : ""
+            isGeneralNextLocked ? "disabled-general-btn no-mouse-events" : ""
           }`}
-          onClick={
-            isLastIntroPage && !isLastText
-              ? undefined
-              : handleNextIntroPage
-          }
+          onClick={isGeneralNextLocked ? undefined : handleNextIntroPage}
         />
       </div>
     </div>

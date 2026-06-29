@@ -1,231 +1,295 @@
 .container-intro {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
 }
+
 .plane-text {
-    width: 40rem;
-    margin: -3rem;
-    position: relative;
-    z-index: 1;
+  width: 40rem;
+  margin: -3rem;
+  position: relative;
+  z-index: 1;
 }
+
 .introPage {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .container-intro {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-  }
-  
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
 
-  .dayelet-plane{
-    width: 40rem;
-    margin-top: 3rem;
-    position: relative;
-    z-index: 1;
-  }
-  .text-bubble-plane {
-    width: 17rem;
-    height: 11.25rem;
-    z-index: 2;
-    background-image: url("../assets/images/introPage/textBubble.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    padding: 2rem;
-    box-sizing: border-box;
-   /* position: relative;
-   top: -26rem;
-   right: 4.5rem; */
-  }
-  .inner-text-plane {
-    margin: 0;
-    text-align: center;
-    font-family: "rubik";
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #000;
-    transform: translate(-0.75rem, -0.5rem);
-    unicode-bidi: isolate;
+.dayelet-plane {
+  width: 40rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 1;
+}
 
+.text-bubble-plane {
+  width: 17rem;
+  height: 11.25rem;
+  z-index: 2;
+  background-image: url("../assets/images/introPage/textBubble.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.inner-text-plane {
+  margin: 0;
+  text-align: center;
+  font-family: "rubik";
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #000;
+  transform: translate(-0.75rem, -0.5rem);
+  unicode-bidi: isolate;
+}
+
+.bubble-nav-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  position: relative;
+  top: -26rem;
+  right: 4.5rem;
+
+  width: fit-content;
+  z-index: 2;
+}
+
+.next-bubble-left,
+.next-bubble-right {
+  width: 2rem;
+  height: auto;
+  margin-left: -1.5rem;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.next-bubble-left {
+  transform: scaleX(-1);
+}
+
+.hidden-bubble-btn {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ניווט כללי */
+.intro-general-nav {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.intro-general-back {
+  position: absolute;
+  right: 2rem;
+  bottom: 0;
+}
+
+.intro-general-next {
+  position: absolute;
+  left: 2rem;
+  bottom: 0;
+}
+
+.intro-general-btn {
+  width: 7rem;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* הובר רק על כפתור פעיל */
+.intro-general-btn:not(.disabled-general-btn):hover {
+  transform: scale(1.05);
+}
+
+/* כפתור נעול */
+.disabled-general-btn {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.8);
+  transform: none;
+}
+
+/* לוודא שאין הובר על כפתור נעול */
+.disabled-general-btn:hover {
+  opacity: 0.35;
+  filter: grayscale(0.8);
+  transform: none;
+}
+
+/* שכבת העננים - מאחורי הכל */
+.intro-clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* בסיס לכל העננים */
+.intro-cloud {
+  position: absolute;
+  opacity: 0.65;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* עננים מפוזרים במסך */
+.intro-cloud1 {
+  top: 3rem;
+  left: 2rem;
+  width: 11rem;
+  opacity: 0.55;
+  animation-name: introCloudMoveRight;
+  animation-duration: 20s;
+}
+
+.intro-cloud2 {
+  top: 5rem;
+  right: 4rem;
+  width: 9rem;
+  opacity: 0.5;
+  animation-name: introCloudMoveLeft;
+  animation-duration: 24s;
+}
+
+.intro-cloud3 {
+  top: 12rem;
+  left: 14rem;
+  width: 13rem;
+  opacity: 0.6;
+  animation-name: introCloudMoveRight;
+  animation-duration: 28s;
+}
+
+.intro-cloud4 {
+  top: 15rem;
+  right: 12rem;
+  width: 10rem;
+  opacity: 0.45;
+  animation-name: introCloudMoveLeft;
+  animation-duration: 22s;
+}
+
+.intro-cloud5 {
+  bottom: 8rem;
+  left: 5rem;
+  width: 12rem;
+  opacity: 0.5;
+  animation-name: introCloudMoveRight;
+  animation-duration: 26s;
+}
+
+.intro-cloud6 {
+  bottom: 12rem;
+  right: -3rem;
+  width: 14rem;
+  opacity: 0.55;
+  animation-name: introCloudMoveLeft;
+  animation-duration: 30s;
+}
+
+.intro-cloud7 {
+  top: 5rem;
+  left: 50%;
+  width: 8rem;
+  animation-name: introCloudMoveRight;
+  animation-duration: 25s;
+}
+
+/* תנועה קטנה ועדינה */
+@keyframes introCloudMoveRight {
+  from {
+    transform: translateX(-3.5rem) translateY(0);
   }
-  .bubble-nav-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-  
-    position: relative;
-    top: -26rem;
-    right: 4.5rem;
-  
-    width: fit-content;
-    z-index: 2;
+
+  to {
+    transform: translateX(3.5rem) translateY(-0.5rem);
   }
-  
-  .next-bubble-left,
-  .next-bubble-right {
-    width: 2rem;
-    height: auto;
-    margin-left: -1.5rem;
-    cursor: pointer;
-    z-index: 3;
+}
+
+@keyframes introCloudMoveLeft {
+  from {
+    transform: translateX(3.5rem) translateY(0);
   }
-  
-  .next-bubble-left {
-    transform: scaleX(-1);
+
+  to {
+    transform: translateX(-3.5rem) translateY(0.5rem);
   }
-  .hidden-bubble-btn {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .intro-general-nav {
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    right: 0;
-    z-index: 5;
-  }
-  
-  .intro-general-back {
-    position: absolute;
-    right: 2rem;
-    bottom: 0;
-  }
-  
-  .intro-general-next {
-    position: absolute;
-    left: 2rem;
-    bottom: 0;
-  }
-  
-  .intro-general-btn {
-    width: 7rem;
-    height: auto;
-    cursor: pointer;
-  }
-  
-  .hidden-bubble-btn {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  
-  .disabled-general-btn {
-    opacity: 0.4;
-    pointer-events: none;
-  }
-  
-  /* שכבת העננים - מאחורי הכל */
-  .intro-clouds {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  
-  /* בסיס לכל העננים */
-  .intro-cloud {
-    position: absolute;
+}
+
+/* הערת דפדוף */
+.dayelet-bubble-hint {
+  position: absolute;
+  top: 25rem;
+  left: 73%;
+  transform: translateX(-50%);
+
+  margin: 0;
+  white-space: nowrap;
+
+  font-family: "rubik-bold";
+  font-size: 1rem;
+  color: #07435d;
+
+  animation: dayeletHintPulse 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes dayeletHintPulse {
+  0% {
     opacity: 0.65;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    text-shadow: 0 0 0 rgba(7, 67, 93, 0);
   }
-  
-  /* עננים מפוזרים במסך */
-  .intro-cloud1 {
-    top: 3rem;
-    left: 2rem;
-    width: 11rem;
-    opacity: 0.55;
-    animation-name: introCloudMoveRight;
-    animation-duration: 20s;
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 0.55rem rgba(7, 67, 93, 0.28);
   }
-  
-  .intro-cloud2 {
-    top: 5rem;
-    right: 4rem;
-    width: 9rem;
-    opacity: 0.5;
-    animation-name: introCloudMoveLeft;
-    animation-duration: 24s;
+
+  100% {
+    opacity: 0.65;
+    text-shadow: 0 0 0 rgba(7, 67, 93, 0);
   }
-  
-  .intro-cloud3 {
-    top: 12rem;
-    left: 14rem;
-    width: 13rem;
-    opacity: 0.6;
-    animation-name: introCloudMoveRight;
-    animation-duration: 28s;
-  }
-  
-  .intro-cloud4 {
-    top: 15rem;
-    right: 12rem;
-    width: 10rem;
-    opacity: 0.45;
-    animation-name: introCloudMoveLeft;
-    animation-duration: 22s;
-  }
-  
-  .intro-cloud5 {
-    bottom: 8rem;
-    left: 5rem;
-    width: 12rem;
-    opacity: 0.5;
-    animation-name: introCloudMoveRight;
-    animation-duration: 26s;
-  }
-  
-  .intro-cloud6 {
-    bottom: 12rem;
-    right: -3rem;
-    width: 14rem;
-    opacity: 0.55;
-    animation-name: introCloudMoveLeft;
-    animation-duration: 30s;
-  }
-  
-  .intro-cloud7 {
-    top: 5rem;
-    left: 50%;
-    width: 8rem;
-    animation-name: introCloudMoveRight;
-    animation-duration: 25s;
-  }
-  
-  /* תנועה קטנה ועדינה */
-  @keyframes introCloudMoveRight {
-    from {
-      transform: translateX(-3.5rem) translateY(0);
-    }
-  
-    to {
-      transform: translateX(3.5rem) translateY(-0.5rem);
-    }
-  }
-  
-  @keyframes introCloudMoveLeft {
-    from {
-      transform: translateX(3.5rem) translateY(0);
-    }
-  
-    to {
-      transform: translateX(-3.5rem) translateY(0.5rem);
-    }
-  }
+}
+.intro-general-next.no-mouse-events {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.35;
+  filter: grayscale(0.8);
+  transform: none !important;
+}
+
+.intro-general-next.no-mouse-events:hover,
+.intro-general-next.no-mouse-events:active,
+.intro-general-next.no-mouse-events:focus {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  opacity: 0.35;
+  filter: grayscale(0.8);
+  transform: none !important;
+}

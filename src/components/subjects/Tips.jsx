@@ -2,7 +2,7 @@ import React from "react";
 import "../../css/IntroPage.css";
 import "../../css/Tips.css";
 
-import nextBtnText from "../../assets/images/introPage/nextBtnText.svg";
+import nextBtnText from "../../assets/images/introPage/endBtnText.svg";
 import backBtnText from "../../assets/images/introPage/backBtnText.svg";
 import cloud from "../../assets/images/openingPage/cloud.png";
 
@@ -12,37 +12,44 @@ import miniPlane from "../../assets/images/tips/miniPlane.png";
 
 const tipsData = {
   header: "טיפים חשובים לפני שממריאים",
-  text: "לחצו על המטוסים",
+  text: "לחצו על כל המטוסים כדי להמשיך",
   drives: [
     {
       title: "טיפ 1",
-      description: "יש לנהל טבלת ב״מ על בקשות חו״ל הנפתחות בדיגיטל.",
+      description: "יש לנהל טבלת בו״ם על בקשות חו״ל הנפתחות בדיגיטל.",
       car: miniPlane,
     },
     {
       title: "טיפ 2",
-      description: "ודאו שכל הפרטים בבקשה תואמים לפרטי החייל ולתאריכים שהוזנו.",
+      description:
+        "יש לשים לב כי ישנן הגבלות שונות עבור טיסות למדינות מסויימות המתעדכנות מעת לעת ועל כן יש להיות בבקרה.",
       car: miniPlane,
     },
     {
       title: "טיפ 3",
-      description: "במקרה של שינוי לאחר תחילת ההיתר, יש לפעול לפי הנהלים ולעדכן ידנית.",
+      description:
+        'יש ליצור מנגנוני בקרה וליצור נוהל יציאה לחו"ל ביחידה - כאשר חייל משנה תאריכי טיסה עליו לעדכן את משרד המשא"ן במיידי על מנת למנוע אצלנו פער.',
       car: miniPlane,
     },
     {
       title: "טיפ 4",
-      description: "חשוב לתעד באסמכתא כל פעולה חריגה שבוצעה בתהליך.",
+      description: "לעולם לא להבטיח לחייל שבקשתו תאושר, ולהדגיש זאת גם למפקדים בדגש בזמן מלחמה והנחיות נשנות.",
       car: miniPlane,
     },
     {
       title: "טיפ 5",
-      description: "לפני סגירת טיפול, ודאו שהבקשה הושלמה ושאין חוסרים.",
+      description: 'לעולם לא לאפשר יציאה לחו"ל לקבוצת לוחמים גדולה/ מפקדים לאור המצב הביטחוני שאינו מבטיח את ביטחוננו בהיבט הפעלת היחידה ללחימה.',
       car: miniPlane,
     },
   ],
 };
 
-function Tips({ onBack, onNext }) {
+function Tips({ onBack, onNext, tipsCompleted, onCompleteTips }) {
+  const handleNext = () => {
+    if (!tipsCompleted) return;
+    onNext?.();
+  };
+
   return (
     <div className="tips">
       <div className="intro-clouds">
@@ -56,9 +63,16 @@ function Tips({ onBack, onNext }) {
       </div>
 
       <h1 className="tips-title">{tipsData.header}</h1>
-      <p className="tips-subtitle">-{tipsData.text}-</p>
 
-      <PlaneTips data={tipsData} wasCompleted={false} unlock={() => {}} />
+      <p className="tips-subtitle">
+        {tipsCompleted ? "-כל הטיפים נפתחו, אפשר להמשיך-" : `-${tipsData.text}-`}
+      </p>
+
+      <PlaneTips
+        data={tipsData}
+        wasCompleted={tipsCompleted}
+        unlock={onCompleteTips}
+      />
 
       <div className="intro-general-nav">
         <img
@@ -71,8 +85,10 @@ function Tips({ onBack, onNext }) {
         <img
           src={nextBtnText}
           alt="הבא"
-          className="intro-general-btn intro-general-next"
-          onClick={onNext}
+          className={`intro-general-btn intro-general-next ${
+            tipsCompleted ? "" : "disabled-general-btn no-mouse-events"
+          }`}
+          onClick={tipsCompleted ? handleNext : undefined}
         />
       </div>
     </div>

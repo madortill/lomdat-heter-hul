@@ -65,13 +65,11 @@ function ManualProcedure({
     ? pizzeriaHovaCompleted
     : pizzeriaKevaCompleted;
 
-  const isModalActionAllowed =
+    const isModalActionAllowed =
     activeItem === "gelateria"
       ? isGelateriaCurrentPageCompleted
       : activeItem === "pizzeria"
       ? isPizzeriaCurrentPageCompleted
-      : activeItem === "pisa"
-      ? pisaCompleted
       : true;
 
   const isSubjectCompleted =
@@ -257,35 +255,34 @@ function ManualProcedure({
 
     pisa: {
       title: "נוהל ידני",
-      text1: "כאן יופיע ההסבר השלישי של מגדל פיזה.",
-      text2: "בהמשך אפשר להחליף את זה בקומפוננטה אינטראקטיבית.",
-      actionText: "סיימתי לקרוא",
-      onAction: () => completeManualPart("pisa"),
+      text1: "כך נראה נוהל ידני",
     },
   };
 
   const handleItemClick = (item) => {
     const itemIndex = steps.indexOf(item);
-
+  
     if (itemIndex > currentStep) return;
-
+  
     setProgressWithCallback((prev) => {
       const prevCompletedItems = prev.completedItems || [];
-
+  
       const nextCompletedItems = prevCompletedItems.includes(item)
         ? prevCompletedItems
         : [...prevCompletedItems, item];
-
+  
       const nextCurrentStep =
         itemIndex === (prev.currentStep || 0)
           ? Math.min((prev.currentStep || 0) + 1, steps.length)
           : prev.currentStep || 0;
-
+  
       return {
         ...prev,
         activeItem: item,
         completedItems: nextCompletedItems,
         currentStep: nextCurrentStep,
+  
+        ...(item === "pisa" ? { pisaCompleted: true } : {}),
       };
     });
   };
@@ -422,7 +419,7 @@ function ManualProcedure({
           src={nextBtnText}
           alt="הבא"
           className={`intro-general-btn intro-general-next ${
-            isSubjectCompleted ? "" : "intro-general-btn-disabled"
+            isSubjectCompleted ? "" : "disabled-general-btn no-mouse-events"
           }`}
           onClick={isSubjectCompleted ? onNext : undefined}
         />

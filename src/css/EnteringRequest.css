@@ -859,7 +859,7 @@
 }
 
 .lamp-choice-completed {
-  filter: drop-shadow(0 0 0.7rem rgba(83, 205, 127, 0.9));
+  filter: drop-shadow(0 0 0.7rem #006692e7);
 }
 
 .lamp-choice-needed {

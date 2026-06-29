@@ -197,7 +197,7 @@ function GeneralProcedures({
           src={nextBtnText}
           alt="הבא"
           className={`intro-general-btn intro-general-next ${
-            isSubjectCompleted ? "" : "intro-general-btn-disabled"
+            isSubjectCompleted ? "" : "disabled-general-btn no-mouse-events"
           }`}
           onClick={isSubjectCompleted ? onNext : undefined}
         />
