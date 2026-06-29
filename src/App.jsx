@@ -83,7 +83,7 @@ const initialSubjectsProgress = {
 };
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("opening");
+  const [currentPage, setCurrentPage] = useState("manualProcedure");
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   const [questionNextSubject, setQuestionNextSubject] = useState(null);

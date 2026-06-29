@@ -509,3 +509,23 @@ top: -15rem;
     filter: drop-shadow(0 0 0.15rem rgba(255, 197, 91, 0.3));
   }
 }
+.pisa-forms-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  width: 100%;
+  margin-top: 1.2rem;
+}
+
+.pisa-form-img {
+  width: 23rem;
+  max-height: 40rem;
+  object-fit: contain;
+
+  background: white;
+  padding: 0.45rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.35rem 1rem rgba(7, 67, 93, 0.22);
+}

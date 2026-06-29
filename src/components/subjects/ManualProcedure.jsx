@@ -7,6 +7,9 @@ import "../../css/ManualProcedure.css";
 import nextBtnText from "../../assets/images/introPage/nextBtnText.svg";
 import backBtnText from "../../assets/images/introPage/backBtnText.svg";
 import backBtnDiv from "../../assets/images/enteringRequest/backBtnDiv.png";
+import form1 from "../../assets/images/manualProcedure/form1.jpg";
+import form2 from "../../assets/images/manualProcedure/form2.jpg";
+
 
 function ManualProcedure({
   onNext,
@@ -256,6 +259,8 @@ function ManualProcedure({
     pisa: {
       title: "נוהל ידני",
       text1: "כך נראה נוהל ידני",
+      img: form1,
+      img2: form2,
     },
   };
 
@@ -388,6 +393,21 @@ function ManualProcedure({
             {activeContent.text3 && (
               <p className="microcopy">{activeContent.text3}</p>
             )}
+            {activeContent.img && activeContent.img2 && (
+  <div className="pisa-forms-wrapper">
+    <img
+      src={activeContent.img}
+      alt="טופס נוהל ידני ראשון"
+      className="pisa-form-img"
+    />
+
+    <img
+      src={activeContent.img2}
+      alt="טופס נוהל ידני שני"
+      className="pisa-form-img"
+    />
+  </div>
+)}
 
             {activeContent.actionText && (
               <button
