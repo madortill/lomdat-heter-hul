@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import "../css/MobileWarningOverlay.css";
 
 function MobileWarningOverlay({
-  breakpoint = 1000,
+  breakpoint = 700,
   title = "הלומדה אינה מותאמת לטלפון",
-  message = "כדי לצפות בתוכן בצורה מיטבית, מומלץ לפתוח את הלומדה ממחשב.",
+  message = " או להפך את הטלפון כדי לצפות בתוכן בצורה מיטבית, מומלץ לפתוח את הלומדה ממחשב.",
   icon = "💻",
 }) {
   const [isMobile, setIsMobile] = useState(false);

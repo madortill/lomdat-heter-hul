@@ -37,7 +37,7 @@
   .shelf-gifts-text-box {
     position: absolute;
     top: 5.5rem;
-    right: 31rem;
+    right: 30rem;
   
     width: 20rem;
     min-height: 8rem;
@@ -75,7 +75,7 @@
   
   .shelf-gifts-svg-area {
     position: absolute;
-    top: 9.1rem;
+    top: 8.9rem;
     right: -6.3rem;
   
     width: 40rem;
@@ -150,7 +150,28 @@
     max-width: 25rem;
     max-height: 20rem;
     object-fit: contain;
-    position: relative;
-    top: 0.9rem;
-    left: 18rem;
+    position: absolute;
+    top: 30.15rem;
+    left: 35.9rem;
+  }
+  @media (max-width: 890px) {
+
+    .general-content-img2 {
+      max-width: 22rem;
+      max-height: 20rem;
+      object-fit: contain;
+      position: absolute;
+      top: 31.4rem;
+      left: 37.8rem;
+    }
+  
+  }
+  @media (max-width: 780px) {
+    .shelf-gifts-text-box {
+      position: absolute;
+      top: 5.5rem;
+      right: 26rem;
+    }
+  
+  
   }

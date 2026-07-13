@@ -293,6 +293,17 @@ top: -15rem;
   box-shadow: 0 0.45rem 1rem rgba(0, 0, 0, 0.16);
 }
 
+@media (max-width: 870px) {
+  .ice-cream-svg {
+    width: 10rem;
+    height: auto;
+    display: block;
+  
+  }
+
+}
+
+
 /* -------------------------------------------------------------pizza------------------------------------------------------------------------ */
 .pizza-topics-wrapper {
   width: 100%;

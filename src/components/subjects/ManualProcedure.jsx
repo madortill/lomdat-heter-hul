@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItalyBackground from "../../components/backgroundsSvg/ItalyBackground";
 import IceCream from "../../components/IceCream";
 import PizzaTopics from "../../components/PizzaTopics";
@@ -18,6 +18,24 @@ function ManualProcedure({
   setProgress,
   setProgressWithCallback,
 }) {
+  const [isTabletOrMobile, setIsTabletOrMobile] = useState(() =>
+    window.matchMedia("(max-width: 1024px)").matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1024px)");
+
+    const handleScreenChange = (event) => {
+      setIsTabletOrMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleScreenChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleScreenChange);
+    };
+  }, []);
+
   const {
     activeItem = null,
     currentStep = 0,
@@ -242,7 +260,9 @@ function ManualProcedure({
     pizzeria: {
       title: "נוהל ידני",
       text1: isPizzeriaHovaPage ? "חיילי חובה" : "חיילי קבע",
-      text3: "-גררו את המרכיבים לפי הסדר-",
+      text3: isTabletOrMobile
+        ? "-לחצו על המרכיבים לפי הסדר-"
+        : "-גררו את המרכיבים לפי הסדר-",
       component: (
         <PizzaTopics
           key={pizzeriaPage}

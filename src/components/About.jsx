@@ -25,9 +25,9 @@ function About() {
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="list-text-about">מפתחת ראשית:</h3>
-            <p className="list-text-about">רב"ט מאיה מרום</p>
+            <p className="list-text-about">סמל מאיה מרום</p>
             <h3 className="list-text-about">גרפיקה:</h3>
-            <p className="list-text-about">רב"ט מאיה מרום</p>
+            <p className="list-text-about">סמל מאיה מרום</p>
             <h3 className="list-text-about">מומחי תוכן:</h3>
             <p className="list-text-about">מתן</p>
             <p className="list-text-about">רחל</p>

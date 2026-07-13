@@ -158,7 +158,7 @@
   /* ------------------------------------------big ben----------------------------------------------------- */
   .clock-big-ben-wrapper {
     position: relative;
-    width: 62rem;
+    width: 60rem;
     height: 30rem;
     margin: 0 auto;
     direction: rtl;
@@ -333,4 +333,37 @@
     /* background: rgba(255, 255, 255, 0.85); */
     border-radius: 0.8rem;
     padding: 0.5rem 0.8rem;
+  }
+  
+  @media (max-width: 850px) {
+    .clock-info-card-img {
+      position: absolute;
+      inset: 0;
+      right: -3rem;
+      width: 85%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .clock-info-card-text {
+      position: absolute;
+      top: 7rem;
+      right: -7.8rem;
+      left: 2rem;
+      bottom: 2.5rem;
+      
+    
+      font-family: "rubik";
+      color: #07435d;
+      text-align: center;
+      direction: rtl;
+    
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+    }
+    .clock-info-card-text p {
+      font-size: 0.9rem;
+    }
+  
   }
