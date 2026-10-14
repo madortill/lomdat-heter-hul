@@ -335,6 +335,27 @@
     padding: 0.5rem 0.8rem;
   }
   
+  .phone-number-button:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+  .phone-number-button:disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .phone-number-button:disabled:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .phone-number-button {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
   @media (max-width: 850px) {
     .clock-info-card-img {
       position: absolute;

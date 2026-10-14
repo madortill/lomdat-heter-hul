@@ -1,3 +1,4 @@
+
 import React from "react";
 
 import kevaImg from "../assets/images/enteringRequest/kevaImg.svg";
@@ -78,13 +79,37 @@ function LampPages({
     },
   };
 
-  const activeCards = selectedType ? cardsByType[selectedType] : [];
-  const openCards = selectedType ? openCardsByType[selectedType] || [] : [];
-  const activeVisuals = selectedType ? typeVisuals[selectedType] : null;
+  const activeCards = selectedType
+    ? cardsByType[selectedType] || []
+    : [];
+
+  const openCards = selectedType
+    ? openCardsByType[selectedType] || []
+    : [];
+
+  const activeVisuals = selectedType
+    ? typeVisuals[selectedType]
+    : null;
 
   const isKevaCompleted = completedTypes.includes("keva");
   const isHovaCompleted = completedTypes.includes("hova");
   const areBothCompleted = isKevaCompleted && isHovaCompleted;
+
+  // האם כל הכרטיסיות של הדמות הנוכחית נפתחו?
+  const isCurrentTypeCompleted =
+    activeCards.length > 0 &&
+    activeCards.every((_, index) => openCards.includes(index));
+
+  // האם הדמות השנייה עדיין לא הושלמה?
+  const otherType = selectedType === "keva" ? "hova" : "keva";
+
+  const isOtherTypeCompleted = completedTypes.includes(otherType);
+
+  // הצגת הודעה לאחר השלמת הדמות הראשונה בלבד
+  const showCompletionMessage =
+    selectedType &&
+    isCurrentTypeCompleted &&
+    !isOtherTypeCompleted;
 
   const handleSelectType = (type) => {
     setSelectedType(type);
@@ -97,22 +122,22 @@ function LampPages({
   const handleCardClick = (index) => {
     if (!selectedType) return;
 
-    setOpenCardsByType((prev) => {
-      const currentOpenCards = prev[selectedType] || [];
+    const currentOpenCards = openCardsByType[selectedType] || [];
 
-      const updatedCards = currentOpenCards.includes(index)
-        ? currentOpenCards
-        : [...currentOpenCards, index];
+    // לא מבצעים עדכון נוסף אם הכרטיסייה כבר נפתחה
+    if (currentOpenCards.includes(index)) return;
 
-      if (updatedCards.length === cardsByType[selectedType].length) {
-        onCompleteType?.(selectedType);
-      }
+    const updatedCards = [...currentOpenCards, index];
 
-      return {
-        ...prev,
-        [selectedType]: updatedCards,
-      };
-    });
+    setOpenCardsByType((prev) => ({
+      ...prev,
+      [selectedType]: updatedCards,
+    }));
+
+    // השלמת הדמות רק לאחר פתיחת כל הכרטיסיות
+    if (updatedCards.length === cardsByType[selectedType].length) {
+      onCompleteType?.(selectedType);
+    }
   };
 
   return (
@@ -125,35 +150,52 @@ function LampPages({
               : "כדי להשלים את העמוד, צריך לעבור גם על קבע וגם על חובה"}
           </p>
 
-          <p className="lamp-page-subtext">לחצו על אחת הדמויות:</p>
+          <p className="lamp-page-subtext">
+            לחצו על אחת הדמויות:
+          </p>
 
           <div className="lamp-choice-wrapper">
             <button
               className={`lamp-choice-card ${
-                isKevaCompleted ? "lamp-choice-completed" : "lamp-choice-needed"
+                isKevaCompleted
+                  ? "lamp-choice-completed"
+                  : "lamp-choice-needed"
               }`}
               onClick={() => handleSelectType("keva")}
             >
-              {isKevaCompleted && <div className="lamp-choice-check">✔</div>}
+              {isKevaCompleted && (
+                <div className="lamp-choice-check">✔</div>
+              )}
 
-       
+              <img
+                id="keva-img"
+                src={kevaImg}
+                alt="איש קבע"
+              />
 
-              <img id="keva-img" src={kevaImg} alt="איש קבע" />
               <span>איש קבע</span>
             </button>
 
-            <img src={lampImg} alt="lampImg" className="lamp-img" />
+            <img
+              src={lampImg}
+              alt="lampImg"
+              className="lamp-img"
+            />
 
             <button
               className={`lamp-choice-card ${
-                isHovaCompleted ? "lamp-choice-completed" : "lamp-choice-needed"
+                isHovaCompleted
+                  ? "lamp-choice-completed"
+                  : "lamp-choice-needed"
               }`}
               onClick={() => handleSelectType("hova")}
             >
-              {isHovaCompleted && <div className="lamp-choice-check">✔</div>}
-
+              {isHovaCompleted && (
+                <div className="lamp-choice-check">✔</div>
+              )}
 
               <img src={hovaImg} alt="חייל חובה" />
+
               <span>חייל חובה</span>
             </button>
           </div>
@@ -162,19 +204,28 @@ function LampPages({
 
       {selectedType && (
         <div className="lamp-cards-page">
-          <button className="lamp-back-btn" onClick={handleBack}>
-            <img src={backBtnDiv} alt="backBtnDiv" />
+          <button
+            className="lamp-back-btn"
+            onClick={handleBack}
+          >
+            <img src={backBtnDiv} alt="חזרה" />
           </button>
 
           <h3 className="lamp-subtitle">
-            {selectedType === "keva" ? "איש קבע" : "חייל חובה"}
+            {selectedType === "keva"
+              ? "איש קבע"
+              : "חייל חובה"}
           </h3>
 
-          <p className="lamp-note">- לחצו על כל הכרטיסיות -</p>
+          <p className="lamp-note">
+            - לחצו על כל הכרטיסיות -
+          </p>
 
           <div
             className={`lamp-cards-wrapper ${
-              selectedType === "keva" ? "keva-cards" : "hova-cards"
+              selectedType === "keva"
+                ? "keva-cards"
+                : "hova-cards"
             }`}
           >
             {activeCards.map((card, index) => (
@@ -187,9 +238,15 @@ function LampPages({
                 onClick={() => handleCardClick(index)}
               >
                 <div className="lamp-card-content">
-                  <img src={card.img} alt="" className="lamp-card-img" />
+                  <img
+                    src={card.img}
+                    alt=""
+                    className="lamp-card-img"
+                  />
 
-                  <div className="lamp-card-text">{card.text}</div>
+                  <div className="lamp-card-text">
+                    {card.text}
+                  </div>
                 </div>
               </div>
             ))}
@@ -197,7 +254,11 @@ function LampPages({
 
           {activeVisuals && (
             <div className="lamp-side-wrapper">
-              <img src={lampImg} alt="" className="side-lamp" />
+              <img
+                src={lampImg}
+                alt=""
+                className="side-lamp"
+              />
 
               <img
                 src={activeVisuals.character}
@@ -212,6 +273,21 @@ function LampPages({
                   className="keva-statement"
                 />
               )}
+            </div>
+          )}
+
+          {/* הודעה שמופיעה מיד עם השלמת הדמות הראשונה */}
+          {showCompletionMessage && (
+            <div className="lamp-completion-overlay">
+              <div
+                className="lamp-completion-message"
+                role="status"
+                dir="rtl"
+              >
+                <p>
+                  סיימתם, נא לחזור ולעשות את הדמות השנייה
+                </p>
+              </div>
             </div>
           )}
         </div>

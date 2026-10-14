@@ -134,18 +134,19 @@ function PhoneClicks({
 
             return (
               <button
-                key={number}
-                type="button"
-                className={`phone-number-button ${
-                  isHighlighted ? "phone-number-highlighted" : ""
-                }`}
-                style={{
-                  top: position.top,
-                  left: position.left,
-                }}
-                onClick={() => handleNumberClick(numericNumber)}
-                aria-label={`ספרה ${number}`}
-              />
+              key={number}
+              type="button"
+              className={`phone-number-button ${
+                isHighlighted ? "phone-number-highlighted" : ""
+              }`}
+              style={{
+                top: position.top,
+                left: position.left,
+              }}
+              onClick={() => handleNumberClick(numericNumber)}
+              disabled={!animationFinished || completed}
+              aria-label={`ספרה ${number}`}
+            />
             );
           })}
         </div>
